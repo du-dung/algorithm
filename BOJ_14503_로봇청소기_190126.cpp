@@ -1,138 +1,64 @@
-/*
-·Îº¿ Ã»¼Ò±â https://www.acmicpc.net/problem/14503
-19.01.22~01.26 01:14
-*/
+/* 14503. ë¡œë´‡ ì²­ì†Œê¸° Gold 5
+ https://www.acmicpc.net/problem/14503
+ -> ì‹œë®¬ë ˆì´ì…˜
+ */
 
 #include <iostream>
 #include <vector>
 #include <algorithm>
 using namespace std;
 
-vector< pair<int, int> > dir = { {-1,0}, {0,1}, {1,0}, {0,-1} }; //¹æÇâ(0ºÏ 1µ¿ 2³² 3¼­)
-//d=d+1%4; //´ÙÀ½¹æÇâÀ¸·Î°¡±â
-
-//vector< pair<int, int> > dir = { {0,-1}, {1,0}, {0,1}, {-1,0} };//ºÏµ¿³²¼­
+vector< pair<int, int> > dir = { {-1,0}, {0,1}, {1,0}, {0,-1} }; //ë°©í–¥(0ë¶ 1ë™ 2ë‚¨ 3ì„œ)
 void cleaner(bool &end, int ans, vector< vector<int> >room, vector< vector<bool> > cleaned, int r, int c, int d);
 
 int main() {
-	int N, M; //¼¼·Î, °¡·Î
-	int r, c, d; //(r, c) : ·Îº¿Ã»¼Ò±âÀÇ À§Ä¡, d: ·Îº¿Ã»¼Ò±â°¡ ¹Ù¶óº¸´Â ¹æÇâ(0ºÏ 1µ¿ 2³² 3¼­)
-
-	cin >> N >> M;
-	cin >> r >> c >> d;
-
-	vector< vector<int> > room(N, vector<int>(M, 0));
-
-	for (int i = 0; i < N; i++) {
-		for (int j = 0; j < M; j++) {
-			cin >> room[i][j];
-		}
-	}
-
-	int ans = 0; //Ã»¼ÒÇÑ °ø°£ÀÇ ¼ö
-	bool end = false;
-	vector< vector<bool> > cleaned(N, vector<bool>(M, 0)); //Ã»¼ÒµÇ¾úÀ¸¸é true, ¾Æ´Ï¸é false
-
-	cleaner(end, ans, room, cleaned, r, c, d);
+    int N, M; //ì„¸ë¡œ, ê°€ë¡œ
+    int r, c, d; //(r, c) : ë¡œë´‡ì²­ì†Œê¸°ì˜ ìœ„ì¹˜, d: ë¡œë´‡ì²­ì†Œê¸°ê°€ ë°”ë¼ë³´ëŠ” ë°©í–¥(0ë¶ 1ë™ 2ë‚¨ 3ì„œ)
+    
+    cin >> N >> M;
+    cin >> r >> c >> d;
+    
+    vector< vector<int> > room(N, vector<int>(M, 0));
+    
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            cin >> room[i][j];
+        }
+    }
+    
+    int ans = 0; //ì²­ì†Œí•œ ê³µê°„ì˜ ìˆ˜
+    bool end = false;
+    vector< vector<bool> > cleaned(N, vector<bool>(M, 0)); //ì²­ì†Œë˜ì—ˆìœ¼ë©´ true, ì•„ë‹ˆë©´ false
+    
+    cleaner(end, ans, room, cleaned, r, c, d);
 }
 
 void cleaner(bool &end, int ans, vector< vector<int> >room, vector< vector<bool> > cleaned, int r, int c, int d) {
-//	if (end)
-//		return;
-//	cout << "(" << r << ", " << c << "), d: " << d << endl;
-	
+    int nr, nc, nd=d; //next r,n,c
 
-	int nr, nc, nd=d; //next r,n,c
-//	bool flag = false;
-
-	if (!cleaned[r][c]) {
-		cleaned[r][c] = true; ans++;//Ã»¼ÒÇÏ±â
-	}
-
-	for (int i = 0; i < 4; i++) { //¿ŞÂÊºÎÅÍ Ã¼Å©
-		nd = (nd + 3) % 4;
-		nr = r + dir[nd].first;
-		nc = c + dir[nd].second;
-		if (!(room[nr][nc] || cleaned[nr][nc])) { //Ã»¼Ò¸¦ ¾ÈÇßÀ¸¸é&º®ÀÌ ¾Æ´Ï¸é (Ã»¼Ò °¡´É)
-			cleaner(end, ans, room, cleaned, nr, nc, nd); //´ÙÀ½ Áö¿ªÀ¸·Î
-			//flag = true;
-			//break;
-		}
-	}
-
-	//if (!flag) {
-		//»ç¹æÀÌ ´Ù Ã»¼Ò°¡ µÇ¾îÀÖ°Å³ª º®ÀÏ °æ¿ì -> ÈÄ¹æ Ã¼Å©
-		nd = (d + 2) % 4;
-		nr = r + dir[nd].first;
-		nc = c + dir[nd].second;
-
-		if (room[nr][nc]) { //ÈÄ¹æÀÌ º®ÀÏ °æ¿ì
-			cout << ans;
-			exit(0);
-			//end = true;
-			//return;
-		}
-		else { //ÈÄ¹æÀÌ º®ÀÌ ¾Æ´Ò °æ¿ì
-			cleaner(end, ans, room, cleaned, nr, nc, d); //ÇöÀç¹æÇâ À¯ÁöÇÑ Ã¤ ÈÄÁø
-		}
-	//}
+    if (!cleaned[r][c]) {
+        cleaned[r][c] = true; ans++;//ì²­ì†Œí•˜ê¸°
+    }
+    
+    for (int i = 0; i < 4; i++) { //ì™¼ìª½ë¶€í„° ì²´í¬
+        nd = (nd + 3) % 4;
+        nr = r + dir[nd].first;
+        nc = c + dir[nd].second;
+        if (!(room[nr][nc] || cleaned[nr][nc])) { //ì²­ì†Œë¥¼ ì•ˆí–ˆìœ¼ë©´&ë²½ì´ ì•„ë‹ˆë©´ (ì²­ì†Œ ê°€ëŠ¥)
+            cleaner(end, ans, room, cleaned, nr, nc, nd); //ë‹¤ìŒ ì§€ì—­ìœ¼ë¡œ
+        }
+    }
+    
+    //ì‚¬ë°©ì´ ë‹¤ ì²­ì†Œê°€ ë˜ì–´ìˆê±°ë‚˜ ë²½ì¼ ê²½ìš° -> í›„ë°© ì²´í¬
+    nd = (d + 2) % 4;
+    nr = r + dir[nd].first;
+    nc = c + dir[nd].second;
+    
+    if (room[nr][nc]) { //í›„ë°©ì´ ë²½ì¼ ê²½ìš°
+        cout << ans;
+        exit(0);
+    }
+    else { //í›„ë°©ì´ ë²½ì´ ì•„ë‹ ê²½ìš°
+        cleaner(end, ans, room, cleaned, nr, nc, d); //í˜„ì¬ë°©í–¥ ìœ ì§€í•œ ì±„ í›„ì§„
+    }
 }
-
-//int canIclean(vector< vector<int> >room, vector< vector<bool> > cleaned, int &r, int &c, int d) {
-//	/*
-//	³× ¹æÇâÀÌ ¸ğµÎ Ã»¼ÒµÇ¾î ÀÖ°Å³ª º®ÀÎ °æ¿ì 4
-//
-//	Ã»¼Ò °¡´ÉÇÑ ¹æÇâ ¸®ÅÏ (0,1,2,3)-> ÇöÀç ¹æÇâ ±âÁØÀ¸·Î ¿ŞÂÊºÎÅÍ Å½»ö
-//	*/
-//	//bool front = (cleaned[r + dir[d].first][c + dir[d].second] || room[r + dir[d].first][c + dir[d].second]); d = (d + 1) % 4;
-//	//bool right = (cleaned[r + dir[d].first][c + dir[d].second] || room[r + dir[d].first][c + dir[d].second]); d = (d + 1) % 4;
-//	//bool back = (cleaned[r + dir[d].first][c + dir[d].second] || room[r + dir[d].first][c + dir[d].second]); d = (d + 1) % 4;
-//	//bool left = (cleaned[r + dir[d].first][c + dir[d].second] || room[r + dir[d].first][c + dir[d].second]); d = (d + 1) % 4; //Ã³À½ d·Î µ¹¾Æ¿È
-//
-//	//if (!left)
-//	//	return (d + 3) % 4;
-//	//if (!back)
-//	//	return (d + 2) % 4;
-//	//if (!right)
-//	//	return (d + 1) % 4;
-//	//if (!front)
-//	//	return d;
-//
-//	int cur = (d + 3) % 4; //ÇöÀç¹æÇâ, ¿ŞÂÊºÎÅÍ ½ÃÀÛ
-//	for(int i=4; i; --i){
-//		if (!(cleaned[c + dir[cur].first][r + dir[cur].second] || room[c + dir[cur].first][r + dir[cur].second])) {
-//			//Ã»¼Òµµ ¾ÈÇß°í º®µµ ¾Æ´Ò¶§
-//			return cur;
-//		}
-//	cur = (cur + 3) % 4;
-//	}
-//	
-//	return 4;
-//}
-//
-//void cleaner(int ans, vector< vector<int> >room, vector< vector<bool> > cleaned, int &r, int &c, int d) {
-//
-//	while (true) {
-//		if (!cleaned[c][r]) { cleaned[c][r] = true; ans++; } //Ã»¼Ò
-//		cout << "(" << r << ", " << c << "), d: " << d << endl;
-//
-//		int go = canIclean(room, cleaned, r, c, d);
-//
-//		if (go == 4) { //Ã»¼ÒÇÒ ±¸¿ª ¾øÀ½
-//			 //1. µî µÚ°¡ º®ÀÓ
-//			int back = (d + 2) % 4;
-//			if (room[c + dir[back].first][r + dir[back].second]) {
-//				break;
-//			}
-//
-//			//2. µÚ·Î ÇÑÄ­ ÀÌµ¿ (¹æÇâ À¯Áö)
-//			c += dir[back].first; r += dir[back].second;
-//		}
-//		else { //Ã»¼Ò °¡´É
-//			d = go; //¹æÇâ ÀüÈ¯
-//			c += dir[d].first; r += dir[d].second; //ÇØ´ç ¹æÇâÀ¸·Î ÇÑ Ä­ ÀÌµ¿
-//		}
-//	}
-//
-//	cout << ans;
-//}

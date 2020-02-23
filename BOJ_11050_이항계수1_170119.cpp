@@ -1,3 +1,6 @@
+/* 11050. 이항계수 1 Bronze 1
+ https://www.acmicpc.net/problem/11050
+ */
 #include<iostream>
 using namespace std;
 

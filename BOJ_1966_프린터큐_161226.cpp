@@ -1,5 +1,6 @@
-//https://www.acmicpc.net/problem/1966
-
+/* 1966. 프린터 큐 Silver 3
+ https://www.acmicpc.net/problem/1966
+*/
 #include<iostream>
 #include<utility>
 #include<queue>

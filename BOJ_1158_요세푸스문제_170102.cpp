@@ -1,5 +1,6 @@
-//https://www.acmicpc.net/problem/1158
-
+/* 1158. 요세푸스 문제 Silver 5
+https://www.acmicpc.net/problem/1158
+*/
 #include<iostream>
 using namespace std;
 

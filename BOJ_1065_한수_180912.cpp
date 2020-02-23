@@ -1,24 +1,28 @@
+/* 1065. í•œìˆ˜ Silver 4
+ https://www.acmicpc.net/problem/1065
+ */
+
 #include<iostream>
 using namespace std;
 
 int main(){
-	int num;
-	cin >> num;
-
-	int count;
-	if (num < 100){ //100º¸´Ù ÀÛÀº ¼ö´Â ¸ðµÎ ÇÑ¼ö
-		count = num;
-	}
-	else {
-		//numÀº ¼¼ÀÚ¸® ¼ö ÀÌ¹Ç·Î (1000¹Ì¸¸), °¢ ÀÚ¸®ÀÇ ¼ö¸¦ ±¸ÇÏ¿© µîÂ÷¼ö¿­ÀÎÁö ¾Ë¾Æ³½´Ù.
-		count = 99; //ÃÊ±â°ª
-		int a, b, c; //¼ø¼­´ë·Î 100,10,1ÀÇ ÀÚ¸®¼ö
-		for (int i = 100; i <= num; i++){
-			a = i / 100; b = i / 10 % 10; c = i % 10;
-			if (a - b == b - c) //µîÂ÷¼ö¿­
-				count++;
-		}
-	}
-
-	cout << count;
+    int num;
+    cin >> num;
+    
+    int count;
+    if (num < 100){ //100ë³´ë‹¤ ìž‘ì€ ìˆ˜ëŠ” ëª¨ë‘ í•œìˆ˜
+        count = num;
+    }
+    else {
+        //numì€ ì„¸ìžë¦¬ ìˆ˜ ì´ë¯€ë¡œ (1000ë¯¸ë§Œ), ê° ìžë¦¬ì˜ ìˆ˜ë¥¼ êµ¬í•˜ì—¬ ë“±ì°¨ìˆ˜ì—´ì¸ì§€ ì•Œì•„ë‚¸ë‹¤.
+        count = 99; //ì´ˆê¸°ê°’
+        int a, b, c; //ìˆœì„œëŒ€ë¡œ 100,10,1ì˜ ìžë¦¬ìˆ˜
+        for (int i = 100; i <= num; i++){
+            a = i / 100; b = i / 10 % 10; c = i % 10;
+            if (a - b == b - c) //ë“±ì°¨ìˆ˜ì—´
+                count++;
+        }
+    }
+    
+    cout << count;
 }

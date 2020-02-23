@@ -1,3 +1,7 @@
+/* 2606. 바이러스 Silver 2
+ https://www.acmicpc.net/problem/2606
+ 
+ */
 #include<iostream>
 #include<memory.h>
 #include<queue>

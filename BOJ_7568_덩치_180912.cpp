@@ -1,34 +1,34 @@
-/*
-18.09.12
-±¸±Û¸µÇØ¹ú¿³´Ù À¸¾Ç
-*/
+/* 7568. ë©ì¹˜ Silver 5
+ https://www.acmicpc.net/problem/7568
+ -> Brute Force
+ */
 
 #include<iostream>
 using namespace std;
 
 int main(){
-	int n;
-	int data[2][51]; //height, weight µ¥ÀÌÅÍ 2°³, 2<=n<=50
-	int rank[51];
-
-	//µ¥ÀÌÅÍ ÀÔ·Â
-	cin >> n;
-	for (int i = 0; i < n; i++){
-		cin >> data[0][i] >> data[1][i];
-	}
-
-	//°¢°¢ÀÇ data¿¡ ¼øÀ§ ÁÖ±â
-	int count = 1; //ÃÊ±â ¼øÀ§:1
-	for (int i = 0; i < n; i++){
-		for (int k = 0; k < n; k++){
-			if (data[0][i] < data[0][k] && data[1][i] < data[1][k]) //³ªÀÇ Å°&¸ö¹«°Ô°¡ ´Ù¸¥ µ¥ÀÌÅÍº¸´Ù ÀÛÀ»¶§
-				count++;
-		}
-		rank[i] = count;
-		count = 1; //ÃÊ±âÈ­
-	}
-
-	//Ãâ·Â
-	for (int i = 0; i < n; i++)
-		cout << rank[i] << ' ';
+    int n;
+    int data[2][51]; //height, weight ë°ì´í„° 2ê°œ, 2<=n<=50
+    int rank[51];
+    
+    //ë°ì´í„° ì…ë ¥
+    cin >> n;
+    for (int i = 0; i < n; i++){
+        cin >> data[0][i] >> data[1][i];
+    }
+    
+    //ê°ê°ì˜ dataì— ìˆœìœ„ ì£¼ê¸°
+    int count = 1; //ì´ˆê¸° ìˆœìœ„:1
+    for (int i = 0; i < n; i++){
+        for (int k = 0; k < n; k++){
+            if (data[0][i] < data[0][k] && data[1][i] < data[1][k]) //ë‚˜ì˜ í‚¤&ëª¸ë¬´ê²Œê°€ ë‹¤ë¥¸ ë°ì´í„°ë³´ë‹¤ ì‘ì„ë•Œ
+                count++;
+        }
+        rank[i] = count;
+        count = 1; //ì´ˆê¸°í™”
+    }
+    
+    //ì¶œë ¥
+    for (int i = 0; i < n; i++)
+        cout << rank[i] << ' ';
 }

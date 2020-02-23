@@ -1,74 +1,75 @@
 /*
-18.11.15 ½ºµµÄí - DFS
-https://www.acmicpc.net/problem/2580
-*/
+2580. ìŠ¤ë„ì¿  Gold 4
+ https://www.acmicpc.net/problem/2580
+ -> Backtracking
+ */
 
 #include <iostream>
 #include <vector>
 using namespace std;
 
 bool check_Horizontal(int plate[9][9], pair<int, int> lo, int value) {
-	for (int i = 0; i < 9; i++) {
-		if (plate[lo.first][i] == value)
-			return false;
-	}
-	return true;
+    for (int i = 0; i < 9; i++) {
+        if (plate[lo.first][i] == value)
+            return false;
+    }
+    return true;
 }
 
 bool check_Vertical(int plate[9][9], pair<int, int> lo, int value) {
-	for (int i = 0; i < 9; i++) {
-		if (plate[i][lo.second] == value)
-			return false;
-	}
-	return true;
+    for (int i = 0; i < 9; i++) {
+        if (plate[i][lo.second] == value)
+            return false;
+    }
+    return true;
 }
 
 bool check_Box(int plate[9][9], pair<int, int> lo, int value) {
-	int x = (lo.first / 3) * 3, y = (lo.second / 3) * 3; //°¡·Î·Î x¹øÂ°, ¼¼·Î·Î y¹øÂ° ¹Ú½º
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 3; j++) {
-			if (value == plate[i+x][j+y])
-				return false;
-		}
-	}
-	return true;
+    int x = (lo.first / 3) * 3, y = (lo.second / 3) * 3; //ê°€ë¡œë¡œ xë²ˆì§¸, ì„¸ë¡œë¡œ yë²ˆì§¸ ë°•ìŠ¤
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            if (value == plate[i+x][j+y])
+                return false;
+        }
+    }
+    return true;
 }
 
 void print_Sudoku(int plate[9][9]) {
-	for (int i = 0; i < 9; i++) {
-		for (int j = 0; j < 9; j++) {
-			cout << plate[i][j] << " ";
-		}
-		cout << "\n";
-	}
-	exit(0);
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
+            cout << plate[i][j] << " ";
+        }
+        cout << "\n";
+    }
+    exit(0);
 }
 
 void sudoku(int plate[9][9], vector< pair<int, int> > item, int now) {
-	if (item.size() == now) //sudoku is full
-		print_Sudoku(plate);
-	for (int i = 1; i < 10; i++) {
-		if (check_Horizontal(plate, item[now], i) && check_Vertical(plate, item[now], i) && check_Box(plate, item[now], i)) {
-			plate[item[now].first][item[now].second] = i;
-			//¸ğµç °æ¿ì¿¡ °¡´ÉÇÏ¸é °ª ÀÔ·Â
-			sudoku(plate, item, now + 1);
-			plate[item[now].first][item[now].second] = 0; //°á°ú Ã£±â ½ÇÆĞ½Ã ÃÊ±âÈ­
-		}
-	}
+    if (item.size() == now) //sudoku is full
+        print_Sudoku(plate);
+    for (int i = 1; i < 10; i++) {
+        if (check_Horizontal(plate, item[now], i) && check_Vertical(plate, item[now], i) && check_Box(plate, item[now], i)) {
+            plate[item[now].first][item[now].second] = i;
+            //ëª¨ë“  ê²½ìš°ì— ê°€ëŠ¥í•˜ë©´ ê°’ ì…ë ¥
+            sudoku(plate, item, now + 1);
+            plate[item[now].first][item[now].second] = 0; //ê²°ê³¼ ì°¾ê¸° ì‹¤íŒ¨ì‹œ ì´ˆê¸°í™”
+        }
+    }
 }
 
 int main() {
-	vector< pair<int, int> > item; //Ã¤¿ö¾ß ÇÏ´Â °ªÀÇ À§Ä¡
-	int plate[9][9];
-
-	//input
-	for (int i = 0; i < 9; i++) {
-		for (int j = 0; j < 9; j++) {
-			cin >> plate[i][j];
-			if (plate[i][j] == 0)
-				item.push_back(make_pair(i, j)); //0ÀÌ ÀÔ·ÂµÇ¸é queue¿¡ ÀúÀå
-		}
-	}
-
-	sudoku(plate, item, 0);
+    vector< pair<int, int> > item; //ì±„ì›Œì•¼ í•˜ëŠ” ê°’ì˜ ìœ„ì¹˜
+    int plate[9][9];
+    
+    //input
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
+            cin >> plate[i][j];
+            if (plate[i][j] == 0)
+                item.push_back(make_pair(i, j)); //0ì´ ì…ë ¥ë˜ë©´ queueì— ì €ì¥
+        }
+    }
+    
+    sudoku(plate, item, 0);
 }

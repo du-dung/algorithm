@@ -1,3 +1,7 @@
+/* 2293. 동전 Silver 1
+ https://www.acmicpc.net/problem/2293
+ -> DP
+ */
 #include<iostream>
 #include<algorithm>
 using namespace std;

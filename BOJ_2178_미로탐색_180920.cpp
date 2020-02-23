@@ -1,11 +1,12 @@
-/* https://www.acmicpc.net/problem/2178
-	18.09.18 v.01
-	-ÀÔ·Â¹Ş±â
-	-ÇöÀç queue¿¡ ÀÖ´Â ¿ø¼Ò »Ì¾Æ³»±â ±îÁö.
-
-	18.09.20 v.02
-	- bfs ¾Ë°í¸®Áò ¸¶Àú Â¥±â
-*/
+/* 2178. ë¯¸ë¡œ íƒìƒ‰ Silver 
+ https://www.acmicpc.net/problem/2178
+ 18.09.18 v.01
+ -ì…ë ¥ë°›ê¸°
+ -í˜„ì¬ queueì— ìˆëŠ” ì›ì†Œ ë½‘ì•„ë‚´ê¸° ê¹Œì§€.
+ 
+ 18.09.20 v.02
+ - bfs ì•Œê³ ë¦¬ì¦˜ ë§ˆì € ì§œê¸°
+ */
 
 #include <iostream>
 #include <string>
@@ -13,62 +14,62 @@
 using namespace std;
 
 int main() {
-	int arr[101][101]; //ÃÖ´ë size: 100*100
-	int n; int m;
-
-	cin >> n >> m;
-	for (int i = 1; i <= n; i++) {
-		string str;
-		cin >> str;
-		for (int j = 1; j <= m; j++) {
-			arr[i][j] = str[j-1]-'0';
-		}
-	}
-
-	/* Á¦´ë·Î ÀÔ·ÂµÆ´ÂÁö È®ÀÎ
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < m; j++) {
-			cout << arr[i][j];
-		}
-		cout << '\n';
-	}
-	*/
-
-	//BFS ¾Ë°í¸®Áò »ç¿ë
-	queue<pair<int, int> > q;
-	bool check[101][101] = { {false,} };
-
-	pair<int, int> dir[4];
-	dir[0] = make_pair(-1, 0); //À§
-	dir[1] = make_pair(0, -1); //¿ŞÂÊ
-	dir[2] = make_pair(1, 0); //¾Æ·¡
-	dir[3] = make_pair(0, 1); //¿À¸¥ÂÊ
-	
-	int count = 1;
-	check[1][1] = true;
-	q.push(make_pair(1, 1));
-	while (!q.empty()) {
-		int size_q = q.size(); //ÇöÀç queue »çÀÌÁî
-		for (int i = 1; i <= size_q; i++) {
-			int x = q.front().first, y = q.front().second; q.pop(); //ÇöÀç queue¿¡ ÀÖ´Â ¿ø¼Ò
-			if (x == n && y == m) {
-				cout << count;
-				return 0; //¸¶Áö¸· Ä­¿¡ µµ´ŞÇÑ °æ¿ì return
-			}
-			for (int j = 0; j < 4; j++) {
-				int nx = x + dir[j].first, ny = y + dir[j].second; //¼ø¼­´ë·Î À§, ¿ŞÂÊ, ¾Æ·¡, ¿À¸¥ÂÊ ¿ø¼Ò¸¦ Å½»ö
-				if ((nx > 0 && nx <= n) && (ny > 0 && ny <= m)) { //¿ø¼Ò°¡ ¹Ì·Î ¾È¿¡ Á¸ÀçÇÏ°í
-					if (arr[nx][ny] == 1) {//ÀÌµ¿ÇÒ ¼ö ÀÖ´Â Ä­ÀÌ°í
-						if (check[nx][ny] == false) { //checkÇÏÁö ¾Ê¾Ò´Ù¸é
-							q.push(make_pair(nx, ny)); //queue¿¡ Ãß°¡
-							check[nx][ny] = true; //queue¿¡ ³Ö¾úÀ¸¹Ç·Î ¹æ¹®ÇÒ ¿¹Á¤, µû¶ó¼­ Áßº¹À¸·Î Å¥¿¡ ³ÖÁö ¾Êµµ·Ï Ã¼Å© ¿Ï·á¶ó°í Ç¥½ÃÇØÁÖÀÚ.
-						}
-
-					}
-				}
-			}
-			
-		}
-		count++; //±íÀÌ Ãß°¡
-	}
+    int arr[101][101]; //ìµœëŒ€ size: 100*100
+    int n; int m;
+    
+    cin >> n >> m;
+    for (int i = 1; i <= n; i++) {
+        string str;
+        cin >> str;
+        for (int j = 1; j <= m; j++) {
+            arr[i][j] = str[j-1]-'0';
+        }
+    }
+    
+    /* ì œëŒ€ë¡œ ì…ë ¥ëëŠ”ì§€ í™•ì¸
+     for (int i = 0; i < n; i++) {
+     for (int j = 0; j < m; j++) {
+     cout << arr[i][j];
+     }
+     cout << '\n';
+     }
+     */
+    
+    //BFS ì•Œê³ ë¦¬ì¦˜ ì‚¬ìš©
+    queue<pair<int, int> > q;
+    bool check[101][101] = { {false,} };
+    
+    pair<int, int> dir[4];
+    dir[0] = make_pair(-1, 0); //ìœ„
+    dir[1] = make_pair(0, -1); //ì™¼ìª½
+    dir[2] = make_pair(1, 0); //ì•„ë˜
+    dir[3] = make_pair(0, 1); //ì˜¤ë¥¸ìª½
+    
+    int count = 1;
+    check[1][1] = true;
+    q.push(make_pair(1, 1));
+    while (!q.empty()) {
+        int size_q = q.size(); //í˜„ì¬ queue ì‚¬ì´ì¦ˆ
+        for (int i = 1; i <= size_q; i++) {
+            int x = q.front().first, y = q.front().second; q.pop(); //í˜„ì¬ queueì— ìˆëŠ” ì›ì†Œ
+            if (x == n && y == m) {
+                cout << count;
+                return 0; //ë§ˆì§€ë§‰ ì¹¸ì— ë„ë‹¬í•œ ê²½ìš° return
+            }
+            for (int j = 0; j < 4; j++) {
+                int nx = x + dir[j].first, ny = y + dir[j].second; //ìˆœì„œëŒ€ë¡œ ìœ„, ì™¼ìª½, ì•„ë˜, ì˜¤ë¥¸ìª½ ì›ì†Œë¥¼ íƒìƒ‰
+                if ((nx > 0 && nx <= n) && (ny > 0 && ny <= m)) { //ì›ì†Œê°€ ë¯¸ë¡œ ì•ˆì— ì¡´ì¬í•˜ê³ 
+                    if (arr[nx][ny] == 1) {//ì´ë™í•  ìˆ˜ ìˆëŠ” ì¹¸ì´ê³ 
+                        if (check[nx][ny] == false) { //checkí•˜ì§€ ì•Šì•˜ë‹¤ë©´
+                            q.push(make_pair(nx, ny)); //queueì— ì¶”ê°€
+                            check[nx][ny] = true; //queueì— ë„£ì—ˆìœ¼ë¯€ë¡œ ë°©ë¬¸í•  ì˜ˆì •, ë”°ë¼ì„œ ì¤‘ë³µìœ¼ë¡œ íì— ë„£ì§€ ì•Šë„ë¡ ì²´í¬ ì™„ë£Œë¼ê³  í‘œì‹œí•´ì£¼ì.
+                        }
+                        
+                    }
+                }
+            }
+            
+        }
+        count++; //ê¹Šì´ ì¶”ê°€
+    }
 }

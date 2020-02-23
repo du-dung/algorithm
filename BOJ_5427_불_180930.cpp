@@ -1,27 +1,8 @@
-/*
-https://www.acmicpc.net/problem/5427
-»ó±ÙÀÌ´Â ºó °ø°£°ú º®À¸·Î ÀÌ·ç¾îÁø °Ç¹°¿¡ °¤ÇôÀÖ´Ù. °Ç¹°ÀÇ ÀÏºÎ¿¡´Â ºÒÀÌ ³µ°í, »ó±ÙÀÌ´Â Ãâ±¸¸¦ ÇâÇØ ¶Ù°í ÀÖ´Ù.
-¸Å ÃÊ¸¶´Ù, ºÒÀº µ¿¼­³²ºÏ ¹æÇâÀ¸·Î ÀÎÁ¢ÇÑ ºó °ø°£À¸·Î ÆÛÁ®³ª°£´Ù. º®¿¡´Â ºÒÀÌ ºÙÁö ¾Ê´Â´Ù. »ó±ÙÀÌ´Â µ¿¼­³²ºÏ ÀÎÁ¢ÇÑ Ä­À¸·Î ÀÌµ¿ÇÒ ¼ö ÀÖÀ¸¸ç, 1ÃÊ°¡ °É¸°´Ù.
-»ó±ÙÀÌ´Â º®À» Åë°úÇÒ ¼ö ¾ø°í, ºÒÀÌ ¿Å°ÜÁø Ä­ ¶Ç´Â ÀÌÁ¦ ºÒÀÌ ºÙÀ¸·Á´Â Ä­À¸·Î ÀÌµ¿ÇÒ ¼ö ¾ø´Ù. »ó±ÙÀÌ°¡ ÀÖ´Â Ä­¿¡ ºÒÀÌ ¿Å°Ü¿È°ú µ¿½Ã¿¡ ´Ù¸¥ Ä­À¸·Î ÀÌµ¿ÇÒ ¼ö ÀÖ´Ù.
-ºôµùÀÇ Áöµµ°¡ ÁÖ¾îÁ³À» ¶§, ¾ó¸¶³ª »¡¸® ºôµùÀ» Å»ÃâÇÒ ¼ö ÀÖ´ÂÁö ±¸ÇÏ´Â ÇÁ·Î±×·¥À» ÀÛ¼ºÇÏ½Ã¿À.
-
-ÀÔ·Â
-Ã¹Â° ÁÙ¿¡ Å×½ºÆ® ÄÉÀÌ½ºÀÇ °³¼ö°¡ ÁÖ¾îÁø´Ù. Å×½ºÆ® ÄÉÀÌ½º´Â ÃÖ´ë 100°³ÀÌ´Ù.
-°¢ Å×½ºÆ® ÄÉÀÌ½ºÀÇ Ã¹Â° ÁÙ¿¡´Â ºôµù ÁöµµÀÇ ³Êºñ¿Í ³ôÀÌ w¿Í h°¡ ÁÖ¾îÁø´Ù. (1 ¡Â w,h ¡Â 1000)
-´ÙÀ½ h°³ ÁÙ¿¡´Â w°³ÀÇ ¹®ÀÚ, ºôµùÀÇ Áöµµ°¡ ÁÖ¾îÁø´Ù.
-'.': ºó °ø°£
-'#': º®
-'@': »ó±ÙÀÌÀÇ ½ÃÀÛ À§Ä¡
-'*': ºÒ
-°¢ Áöµµ¿¡ @ÀÇ °³¼ö´Â ÇÏ³ªÀÌ´Ù.
-
-Ãâ·Â
-°¢ Å×½ºÆ® ÄÉÀÌ½º¸¶´Ù ºôµùÀ» Å»ÃâÇÏ´Âµ¥ °¡Àå ºü¸¥ ½Ã°£À» Ãâ·ÂÇÑ´Ù. ºôµùÀ» Å»ÃâÇÒ ¼ö ¾ø´Â °æ¿ì¿¡´Â "IMPOSSIBLE"À» Ãâ·ÂÇÑ´Ù.
-*/
-
-/*
-v01. 18.09.29~18.09.30
-*/
+/* 5427. ë¶ˆ Gold 4
+ https://www.acmicpc.net/problem/5427
+ v01. 18.09.29~18.09.30
+ -> BFS
+ */
 
 #include <iostream>
 #include <vector>
@@ -31,185 +12,186 @@ v01. 18.09.29~18.09.30
 using namespace std;
 
 int escape(int w, int h, vector < vector<int> > fire_run, vector< vector<int> > sangun_run, queue< pair<int, int> > fire, queue< pair<int, int> > sangun) {
-	/* 
-	w: width	, h: height
-	fire_run: ºÒÀÌ È®»êµÇ´Â µ¥ °É¸®´Â ½Ã°£À» ÀúÀåÇÏ´Â 2Â÷¿ø ¹è¿­
-	sangun_run: »ó±ÙÀÌ°¡ µµ¸ÁÄ¡´Â µ¥ °É¸®´Â ½Ã°£À» ÀúÀåÇÏ´Â 2Â÷¿ø ¹è¿­
-	fire: BPS¿¡ ÇÊ¿äÇÑ queue, ºÒÀÇ À§Ä¡°¡ pair·Î µé¾î°¨
-	sangun: BPS¿¡ ÇÊ¿äÇÑ queue, »ó±ÙÀÌÀÇ À§Ä¡°¡ pair·Î µé¾î°¨
-	*/
-
-	pair<int, int> dir[4]; //»óÇÏÁÂ¿ì
-	dir[0] = make_pair(0, -1);
-	dir[1] = make_pair(1, 0);
-	dir[2] = make_pair(-1, 0);
-	dir[3] = make_pair(0, 1);
-
-	//ºÒÀÌ È®»êµÇ´Â µ¥ °É¸®´Â ½Ã°£ ±¸ÇÏ±â
-	int time_fire = 0;
-	while (!fire.empty()) {
-		int size_f = fire.size();
-		time_fire++; //depth
-		for (int k = 0; k < size_f; k++) {
-			int x = fire.front().first, y = fire.front().second;
-			fire.pop();
-
-			for (int i = 0; i < 4; i++) {//³× ¹æÇâ Å½»ö
-				int nx = x + dir[i].first, ny = y + dir[i].second;
-				if (nx < 0 || ny < 0 || nx == h || ny == w) //¹è¿­ ¹üÀ§¸¦ ¹ş¾î³µÀ» °æ¿ì
-					continue;
-				if (fire_run[nx][ny] == -1) //º®ÀÏ °æ¿ì
-					continue;
-				if (fire_run[nx][ny] <= time_fire) //ÀÌ¹Ì Å½»öÇÑ Ä­ÀÏ °æ¿ì
-					continue;
-				fire_run[nx][ny] = time_fire;
-				fire.push(make_pair(nx, ny));
-			}
-		}
-	}
-
-	//»ó±ÙÀÌ Ãâ¹ßÁöÁ¡ ÀúÀå
-	queue<pair<int, int> > next_run;
-	next_run.push(make_pair(sangun.front().first, sangun.front().second)); 
-
-	//»ó±ÙÀÌ°¡ µµ¸ÁÄ¡´Â µ¥ °É¸®´Â ½Ã°£ ±¸ÇÏ±â
-	int time_sangun = 0;
-	while (!sangun.empty()) {
-		int size_s = sangun.size();
-		time_sangun++; //depth
-		for (int k = 0; k < size_s; k++) {
-			int x = sangun.front().first, y = sangun.front().second;
-			sangun.pop();
-
-			for (int i = 0; i < 4; i++) {//³× ¹æÇâ Å½»ö
-				int nx = x + dir[i].first, ny = y + dir[i].second;
-				if (nx < 0 || ny < 0 || nx == h || ny == w) //¹è¿­ ¹üÀ§¸¦ ¹ş¾î³µÀ» °æ¿ì
-					continue;
-				if (sangun_run[nx][ny] == -1) //º®ÀÏ °æ¿ì
-					continue;
-				if (sangun_run[nx][ny] <= time_sangun) //ÀÌ¹Ì Å½»öÇÑ Ä­ÀÏ °æ¿ì
-					continue;
-				sangun_run[nx][ny] = time_sangun;
-				sangun.push(make_pair(nx, ny));
-			}
-		}
-	}
-
-	//µÎ ¹è¿­ ºñ±³
-	vector< vector<bool> > searched(h, vector<bool>(w, false)); //Å½»ö ¿©ºÎ
-
-	while (!next_run.empty()) {
-		int x = next_run.front().first, y = next_run.front().second; next_run.pop();
-
-		for (int i = 0; i < 4; i++) {//³× ¹æÇâ Å½»ö
-			int nx = x + dir[i].first, ny = y + dir[i].second;
-			if (nx < 0 || ny < 0 || nx == h || ny == w) //¹è¿­ ¹üÀ§¸¦ ¹ş¾î³µÀ» °æ¿ì
-				return sangun_run[x][y] + 1; //Å»Ãâ!
-			if (searched[nx][ny] == true) //ÀÌ¹Ì Å½»öÇßÀ» °æ¿ì
-				continue;
-			if (sangun_run[nx][ny] == -1) //º®ÀÏ °æ¿ì
-				continue;
-			if (fire_run[nx][ny] <= sangun_run[nx][ny]) //»ó±ÙÀÌº¸´Ù ºÒÀÌ ºü¸£°Ô ¹øÁ³°Å³ª, µ¿½Ã¿¡ µµÂøÇÒ °æ¿ì
-				continue;
-			next_run.push(make_pair(nx, ny));
-			searched[nx][ny] = true;
-		}
-	}
-
-	return -1; //ºüÁ®³ª¿ÀÁö ¸øÇßÀ» °æ¿ì
+    /*
+     w: width    , h: height
+     fire_run: ë¶ˆì´ í™•ì‚°ë˜ëŠ” ë° ê±¸ë¦¬ëŠ” ì‹œê°„ì„ ì €ì¥í•˜ëŠ” 2ì°¨ì› ë°°ì—´
+     sangun_run: ìƒê·¼ì´ê°€ ë„ë§ì¹˜ëŠ” ë° ê±¸ë¦¬ëŠ” ì‹œê°„ì„ ì €ì¥í•˜ëŠ” 2ì°¨ì› ë°°ì—´
+     fire: BPSì— í•„ìš”í•œ queue, ë¶ˆì˜ ìœ„ì¹˜ê°€ pairë¡œ ë“¤ì–´ê°
+     sangun: BPSì— í•„ìš”í•œ queue, ìƒê·¼ì´ì˜ ìœ„ì¹˜ê°€ pairë¡œ ë“¤ì–´ê°
+     */
+    
+    pair<int, int> dir[4]; //ìƒí•˜ì¢Œìš°
+    dir[0] = make_pair(0, -1);
+    dir[1] = make_pair(1, 0);
+    dir[2] = make_pair(-1, 0);
+    dir[3] = make_pair(0, 1);
+    
+    //ë¶ˆì´ í™•ì‚°ë˜ëŠ” ë° ê±¸ë¦¬ëŠ” ì‹œê°„ êµ¬í•˜ê¸°
+    int time_fire = 0;
+    while (!fire.empty()) {
+        int size_f = fire.size();
+        time_fire++; //depth
+        for (int k = 0; k < size_f; k++) {
+            int x = fire.front().first, y = fire.front().second;
+            fire.pop();
+            
+            for (int i = 0; i < 4; i++) {//ë„¤ ë°©í–¥ íƒìƒ‰
+                int nx = x + dir[i].first, ny = y + dir[i].second;
+                if (nx < 0 || ny < 0 || nx == h || ny == w) //ë°°ì—´ ë²”ìœ„ë¥¼ ë²—ì–´ë‚¬ì„ ê²½ìš°
+                    continue;
+                if (fire_run[nx][ny] == -1) //ë²½ì¼ ê²½ìš°
+                    continue;
+                if (fire_run[nx][ny] <= time_fire) //ì´ë¯¸ íƒìƒ‰í•œ ì¹¸ì¼ ê²½ìš°
+                    continue;
+                fire_run[nx][ny] = time_fire;
+                fire.push(make_pair(nx, ny));
+            }
+        }
+    }
+    
+    //ìƒê·¼ì´ ì¶œë°œì§€ì  ì €ì¥
+    queue<pair<int, int> > next_run;
+    next_run.push(make_pair(sangun.front().first, sangun.front().second));
+    
+    //ìƒê·¼ì´ê°€ ë„ë§ì¹˜ëŠ” ë° ê±¸ë¦¬ëŠ” ì‹œê°„ êµ¬í•˜ê¸°
+    int time_sangun = 0;
+    while (!sangun.empty()) {
+        int size_s = sangun.size();
+        time_sangun++; //depth
+        for (int k = 0; k < size_s; k++) {
+            int x = sangun.front().first, y = sangun.front().second;
+            sangun.pop();
+            
+            for (int i = 0; i < 4; i++) {//ë„¤ ë°©í–¥ íƒìƒ‰
+                int nx = x + dir[i].first, ny = y + dir[i].second;
+                if (nx < 0 || ny < 0 || nx == h || ny == w) //ë°°ì—´ ë²”ìœ„ë¥¼ ë²—ì–´ë‚¬ì„ ê²½ìš°
+                    continue;
+                if (sangun_run[nx][ny] == -1) //ë²½ì¼ ê²½ìš°
+                    continue;
+                if (sangun_run[nx][ny] <= time_sangun) //ì´ë¯¸ íƒìƒ‰í•œ ì¹¸ì¼ ê²½ìš°
+                    continue;
+                sangun_run[nx][ny] = time_sangun;
+                sangun.push(make_pair(nx, ny));
+            }
+        }
+    }
+    
+    //ë‘ ë°°ì—´ ë¹„êµ
+    vector< vector<bool> > searched(h, vector<bool>(w, false)); //íƒìƒ‰ ì—¬ë¶€
+    
+    while (!next_run.empty()) {
+        int x = next_run.front().first, y = next_run.front().second;
+        next_run.pop();
+        
+        for (int i = 0; i < 4; i++) {//ë„¤ ë°©í–¥ íƒìƒ‰
+            int nx = x + dir[i].first, ny = y + dir[i].second;
+            if (nx < 0 || ny < 0 || nx == h || ny == w) //ë°°ì—´ ë²”ìœ„ë¥¼ ë²—ì–´ë‚¬ì„ ê²½ìš°
+                return sangun_run[x][y] + 1; //íƒˆì¶œ!
+            if (searched[nx][ny] == true) //ì´ë¯¸ íƒìƒ‰í–ˆì„ ê²½ìš°
+                continue;
+            if (sangun_run[nx][ny] == -1) //ë²½ì¼ ê²½ìš°
+                continue;
+            if (fire_run[nx][ny] <= sangun_run[nx][ny]) //ìƒê·¼ì´ë³´ë‹¤ ë¶ˆì´ ë¹ ë¥´ê²Œ ë²ˆì¡Œê±°ë‚˜, ë™ì‹œì— ë„ì°©í•  ê²½ìš°
+                continue;
+            next_run.push(make_pair(nx, ny));
+            searched[nx][ny] = true;
+        }
+    }
+    
+    return -1; //ë¹ ì ¸ë‚˜ì˜¤ì§€ ëª»í–ˆì„ ê²½ìš°
 }
-	
+
 int main() {
-	int tnum; //number of test case
-	int width, height; //³Êºñ¿Í ³ôÀÌ
-	vector< vector<int> > map_fire;
-	vector< vector<int> > map_sangun;
-	queue< pair<int, int> > sangun_start;
-	queue< pair<int, int> > fire_start;
-	queue<int> ans;
-
-	cin >> tnum;
-	while (tnum != 0) {
-		tnum--;
-
-		//input
-		cin >> width >> height;
-		for (int i = 0; i < height; i++) {
-			string input;
-			cin >> input;
-
-			vector<int> tmp_fire;
-			vector<int> tmp_sangun;
-			for (int j = 0; j < width; j++) {
-				switch (input[j]) {
-				case '#': //wall, ÀÌµ¿ ºÒ°¡
-					tmp_fire.push_back(-1);
-					tmp_sangun.push_back(-1);
-					break;
-				case '@': //»ó±ÙÀÌ ½ÃÀÛÀ§Ä¡
-					tmp_fire.push_back(INT_MAX); //ÃÖ´ñ°ª
-					tmp_sangun.push_back(0); //½ÃÀÛÁöÁ¡
-					sangun_start.push(make_pair(i, j));
-					break;
-				case '*': //ºÒ ½ÃÀÛ À§Ä¡
-					tmp_fire.push_back(0);
-					tmp_sangun.push_back(INT_MAX); //ÃÖ´ñ°ª
-					fire_start.push(make_pair(i, j));
-					break;
-				default: //input == '.'
-					tmp_fire.push_back(INT_MAX);
-					tmp_sangun.push_back(INT_MAX);
-				}
-			}
-			map_fire.push_back(tmp_fire);
-			map_sangun.push_back(tmp_sangun);
-		}
-
-		/*
-		//input test
-		cout << "map_fire" << endl;
-		for (int i = 0; i < height; i++) {
-			for (int j = 0; j < width; j++) {
-				cout << map_fire[i][j] << ' ';
-			}
-			cout << endl;
-		}
-		cout << "fire_start" << endl;
-		while (!fire_start.empty()) {
-			cout << fire_start.front().first << ',' << fire_start.front().second << endl;
-			fire_start.pop();
-		}
-
-		cout << "map_sangun" << endl;
-		for (int i = 0; i < height; i++) {
-			for (int j = 0; j < width; j++) {
-				cout << map_sangun[i][j] << ' ';
-			}
-			cout << endl;
-		}
-		cout << "sangun_start" << endl;
-		while (!sangun_start.empty()) {
-			cout << sangun_start.front().first << ',' << sangun_start.front().second << endl;
-			sangun_start.pop();
-		}
-		*/
-		//search	
-		ans.push(escape(width, height, map_fire, map_sangun, fire_start, sangun_start));
-	
-		//ÃÊ±âÈ­
-		vector< vector<int> >().swap(map_fire);
-		vector< vector<int> >().swap(map_sangun);
-		queue< pair<int, int> >().swap(fire_start);
-		queue< pair<int, int> >().swap(sangun_start);
-
-	} //end of while
-
-	//output
-	while (!ans.empty()) {
-		if (ans.front() == -1)
-			cout << "IMPOSSIBLE" << endl;
-		else
-			cout << ans.front() << endl;
-		ans.pop();
-	}
+    int tnum; //number of test case
+    int width, height; //ë„ˆë¹„ì™€ ë†’ì´
+    vector< vector<int> > map_fire;
+    vector< vector<int> > map_sangun;
+    queue< pair<int, int> > sangun_start;
+    queue< pair<int, int> > fire_start;
+    queue<int> ans;
+    
+    cin >> tnum;
+    while (tnum != 0) {
+        tnum--;
+        
+        //input
+        cin >> width >> height;
+        for (int i = 0; i < height; i++) {
+            string input;
+            cin >> input;
+            
+            vector<int> tmp_fire;
+            vector<int> tmp_sangun;
+            for (int j = 0; j < width; j++) {
+                switch (input[j]) {
+                    case '#': //wall, ì´ë™ ë¶ˆê°€
+                        tmp_fire.push_back(-1);
+                        tmp_sangun.push_back(-1);
+                        break;
+                    case '@': //ìƒê·¼ì´ ì‹œì‘ìœ„ì¹˜
+                        tmp_fire.push_back(INT_MAX); //ìµœëŒ“ê°’
+                        tmp_sangun.push_back(0); //ì‹œì‘ì§€ì 
+                        sangun_start.push(make_pair(i, j));
+                        break;
+                    case '*': //ë¶ˆ ì‹œì‘ ìœ„ì¹˜
+                        tmp_fire.push_back(0);
+                        tmp_sangun.push_back(INT_MAX); //ìµœëŒ“ê°’
+                        fire_start.push(make_pair(i, j));
+                        break;
+                    default: //input == '.'
+                        tmp_fire.push_back(INT_MAX);
+                        tmp_sangun.push_back(INT_MAX);
+                }
+            }
+            map_fire.push_back(tmp_fire);
+            map_sangun.push_back(tmp_sangun);
+        }
+        
+        /*
+         //input test
+         cout << "map_fire" << endl;
+         for (int i = 0; i < height; i++) {
+         for (int j = 0; j < width; j++) {
+         cout << map_fire[i][j] << ' ';
+         }
+         cout << endl;
+         }
+         cout << "fire_start" << endl;
+         while (!fire_start.empty()) {
+         cout << fire_start.front().first << ',' << fire_start.front().second << endl;
+         fire_start.pop();
+         }
+         
+         cout << "map_sangun" << endl;
+         for (int i = 0; i < height; i++) {
+         for (int j = 0; j < width; j++) {
+         cout << map_sangun[i][j] << ' ';
+         }
+         cout << endl;
+         }
+         cout << "sangun_start" << endl;
+         while (!sangun_start.empty()) {
+         cout << sangun_start.front().first << ',' << sangun_start.front().second << endl;
+         sangun_start.pop();
+         }
+         */
+        //search
+        ans.push(escape(width, height, map_fire, map_sangun, fire_start, sangun_start));
+        
+        //ì´ˆê¸°í™”
+        vector< vector<int> >().swap(map_fire);
+        vector< vector<int> >().swap(map_sangun);
+        queue< pair<int, int> >().swap(fire_start);
+        queue< pair<int, int> >().swap(sangun_start);
+        
+    } //end of while
+    
+    //output
+    while (!ans.empty()) {
+        if (ans.front() == -1)
+            cout << "IMPOSSIBLE" << endl;
+        else
+            cout << ans.front() << endl;
+        ans.pop();
+    }
 }

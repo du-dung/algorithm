@@ -1,3 +1,7 @@
+/* 11051. 이항 계수 2 Silver 1
+ https://www.acmicpc.net/problem/11051
+ -> DP
+ */
 #include<iostream>
 using namespace std;
 

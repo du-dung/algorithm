@@ -1,4 +1,7 @@
-// https://www.acmicpc.net/problem/16235
+/* 16235. 나무 재테크 Gold 5
+ https://www.acmicpc.net/problem/16235
+ -> 시뮬레이션
+ */
 #include <iostream>
 #include <vector>
 #include <algorithm>

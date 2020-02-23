@@ -1,4 +1,6 @@
-//https://www.acmicpc.net/problem/13458
+/* 13458. 시험 감독 Bronze 2
+ https://www.acmicpc.net/problem/13458
+ */
 
 #include <iostream>
 #include <vector>
