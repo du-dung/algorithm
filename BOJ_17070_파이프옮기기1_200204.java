@@ -1,36 +1,36 @@
 import java.util.Scanner;
 
-/* 17070. ÆÄÀÌÇÁ ¿Å±â±â 
+/* 17070. íŒŒì´í”„ ì˜®ê¸°ê¸° 
 	https://www.acmicpc.net/problem/17070
 	*/
-public class BOJ_17070_ÆÄÀÌÇÁ¿Å±â±â {
+public class BOJ_17070_íŒŒì´í”„ì˜®ê¸°ê¸° {
 	enum Pipe {
 		horizontal, vertical, diagonal
 	};
 
-	static int answer; // ¹æ¹ıÀÇ ¼ö
-	static int N; // ÁıÀÇ Å©±â
-	static int[][] map = new int[18][18]; // ÁıÀÇ »óÅÂ. ÀÎµ¦½º´Â 1~N, N+1¹ø ¶óÀÎÀº º®
+	static int answer; // ë°©ë²•ì˜ ìˆ˜
+	static int N; // ì§‘ì˜ í¬ê¸°
+	static int[][] map = new int[18][18]; // ì§‘ì˜ ìƒíƒœ. ì¸ë±ìŠ¤ëŠ” 1~N, N+1ë²ˆ ë¼ì¸ì€ ë²½
 
 	static void dfs(Pipe p, int r, int c) {
 		if (r == N && c == N) {
 			answer++;
 			return;
 		}
-		switch (p) { // ºó Ä­ÀÎÁö Ã¼Å© ÈÄ ÀÌµ¿
-		case horizontal: // °¡·Î or ´ë°¢¼± ÀÌµ¿
+		switch (p) { // ë¹ˆ ì¹¸ì¸ì§€ ì²´í¬ í›„ ì´ë™
+		case horizontal: // ê°€ë¡œ or ëŒ€ê°ì„  ì´ë™
 			if (map[r][c + 1] == 0)
 				dfs(Pipe.horizontal, r, c + 1);
 			if (map[r][c + 1] == 0 && map[r + 1][c] == 0 && map[r + 1][c + 1] == 0)
 				dfs(Pipe.diagonal, r + 1, c + 1);
 			break;
-		case vertical: // ¼¼·Î or ´ë°¢¼± ÀÌµ¿
+		case vertical: // ì„¸ë¡œ or ëŒ€ê°ì„  ì´ë™
 			if (map[r + 1][c] == 0)
 				dfs(Pipe.vertical, r + 1, c);
 			if (map[r][c + 1] == 0 && map[r + 1][c] == 0 && map[r + 1][c + 1] == 0)
 				dfs(Pipe.diagonal, r + 1, c + 1);
 			break;
-		case diagonal: // °¡·Î or ¼¼·Î or ´ë°¢¼± ÀÌµ¿
+		case diagonal: // ê°€ë¡œ or ì„¸ë¡œ or ëŒ€ê°ì„  ì´ë™
 			if (map[r][c + 1] == 0)
 				dfs(Pipe.horizontal, r, c + 1);
 			if (map[r + 1][c] == 0)
@@ -44,14 +44,14 @@ public class BOJ_17070_ÆÄÀÌÇÁ¿Å±â±â {
 		Scanner sc = new Scanner(System.in);
 		// input
 		N = sc.nextInt();
-		for (int i = 1; i <= N; i++) { // Áı »óÅÂ ÀÔ·Â
+		for (int i = 1; i <= N; i++) { // ì§‘ ìƒíƒœ ì…ë ¥
 			for (int j = 1; j <= N; j++) {
 				map[i][j] = sc.nextInt();
 			}
 		}
 		sc.close();
 
-		// ¹Ù¿î´õ¸® -> ¿ìÃøÀÌ¶û ÇÏ´Ü º®¸¸ ÀÖÀ¸¸é ok
+		// ë°”ìš´ë”ë¦¬ -> ìš°ì¸¡ì´ë‘ í•˜ë‹¨ ë²½ë§Œ ìˆìœ¼ë©´ ok
 		for (int i = 1; i <= N; i++) {
 			map[N + 1][i] = 1;
 			map[i][N + 1] = 1;
@@ -59,7 +59,7 @@ public class BOJ_17070_ÆÄÀÌÇÁ¿Å±â±â {
 		map[N + 1][N + 1] = 1;
 
 		// solve
-		dfs(Pipe.horizontal, 1, 2); // ÃÊ±â »óÅÂ (1,2)
+		dfs(Pipe.horizontal, 1, 2); // ì´ˆê¸° ìƒíƒœ (1,2)
 
 		// output
 		System.out.println(answer);

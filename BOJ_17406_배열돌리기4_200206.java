@@ -2,41 +2,41 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-/* 17406. ¹è¿­ µ¹¸®±â 4 Gold V
+/* 17406. ë°°ì—´ ëŒë¦¬ê¸° 4 Gold V
 https://www.acmicpc.net/problem/17406
-- °¡´ÉÇÑ È¸Àü ¿¬»ê ½ÇÇà ¼ø¼­¸¦ ¸ğµÎ ½ÇÇàÇÏ¸ç ÃÖ¼Ú°ª °»½ÅÇÏ±â
-	-> ¿¬»ê ¼öÇà ¼ø¼­¿¡ µû¶ó ¹è¿­ÀÇ ¸ğ¾çÀÌ ´Ù¸£´Ù 
+- ê°€ëŠ¥í•œ íšŒì „ ì—°ì‚° ì‹¤í–‰ ìˆœì„œë¥¼ ëª¨ë‘ ì‹¤í–‰í•˜ë©° ìµœì†Ÿê°’ ê°±ì‹ í•˜ê¸°
+	-> ì—°ì‚° ìˆ˜í–‰ ìˆœì„œì— ë”°ë¼ ë°°ì—´ì˜ ëª¨ì–‘ì´ ë‹¤ë¥´ë‹¤ 
 */
 
-public class BOJ_17406_¹è¿­µ¹¸®±â4 {
+public class BOJ_17406_ë°°ì—´ëŒë¦¬ê¸°4 {
 
 	static int N, M, K;
 	static ArrayList<Tuple> turnOp = new ArrayList<>();
 	static int answer = Integer.MAX_VALUE;
 
-	static int[][] turn(Tuple t, int[][] arr) { // È¸Àü½ÃÅ°±â -> ¸Å°³º¯¼ö arr º¯È­½ÃÅ°±â
+	static int[][] turn(Tuple t, int[][] arr) { // íšŒì „ì‹œí‚¤ê¸° -> ë§¤ê°œë³€ìˆ˜ arr ë³€í™”ì‹œí‚¤ê¸°
 		int r = t.a, c = t.b, s = t.c;
-		// °¡Àå ¿ŞÂÊ À­ Ä­ÀÌ (r-s, c-s), °¡Àå ¿À¸¥ÂÊ ¾Æ·§ Ä­ÀÌ (r+s, c+s)ÀÎ Á¤»ç°¢ÇüÀ» ½Ã°è ¹æÇâÀ¸·Î ÇÑ Ä­¾¿ µ¹¸°´Ù
-		// -> ¹İ½Ã°è¹æÇâÀ¸·Î ÁøÇàÇÏ¸ç °ªÀ» °¡Á®¿Â´Ù
-		for (int n = 0; n < s; n++) { // ¹Ù±ù ÂÊ »ç°¢ÇüºÎÅÍ È¸Àü -> s´Â »ç°¢Çü °³¼ö
-			int len = 2 * (s - n); // Á¤»ç°¢ÇüÀÇ ÇÑ º¯ÀÇ ±æÀÌ -1
-			int x = r - s + n, y = c - s + n; // °¡Àå ¿ŞÂÊ À­ Ä­ÀÇ ÁÂÇ¥
-			int leftTop = arr[x][y]; // °¡Àå ¿ŞÂÊ À­ Ä­ÀÇ °ª
+		// ê°€ì¥ ì™¼ìª½ ìœ— ì¹¸ì´ (r-s, c-s), ê°€ì¥ ì˜¤ë¥¸ìª½ ì•„ë« ì¹¸ì´ (r+s, c+s)ì¸ ì •ì‚¬ê°í˜•ì„ ì‹œê³„ ë°©í–¥ìœ¼ë¡œ í•œ ì¹¸ì”© ëŒë¦°ë‹¤
+		// -> ë°˜ì‹œê³„ë°©í–¥ìœ¼ë¡œ ì§„í–‰í•˜ë©° ê°’ì„ ê°€ì ¸ì˜¨ë‹¤
+		for (int n = 0; n < s; n++) { // ë°”ê¹¥ ìª½ ì‚¬ê°í˜•ë¶€í„° íšŒì „ -> sëŠ” ì‚¬ê°í˜• ê°œìˆ˜
+			int len = 2 * (s - n); // ì •ì‚¬ê°í˜•ì˜ í•œ ë³€ì˜ ê¸¸ì´ -1
+			int x = r - s + n, y = c - s + n; // ê°€ì¥ ì™¼ìª½ ìœ— ì¹¸ì˜ ì¢Œí‘œ
+			int leftTop = arr[x][y]; // ê°€ì¥ ì™¼ìª½ ìœ— ì¹¸ì˜ ê°’
 
-			// ÁÂº¯
+			// ì¢Œë³€
 			for (int i = 0; i < len; i++, x++) {
 				arr[x][y] = arr[x + 1][y];
 			}
-			// ¹Øº¯
+			// ë°‘ë³€
 			for (int i = 0; i < len; i++, y++) {
 				arr[x][y] = arr[x][y + 1];
 			}
-			// ¿ìº¯
+			// ìš°ë³€
 			for (int i = 0; i < len; i++, x--) {
 				arr[x][y] = arr[x - 1][y];
 			}
-			// À­º¯
-			for (int i = 0; i < len - 1; i++, y--) { // ¸¶Áö¸· ÇÑ Ä­Àº ÀúÀåÇØµĞ °ªÀ¸·Î ÁöÁ¤
+			// ìœ—ë³€
+			for (int i = 0; i < len - 1; i++, y--) { // ë§ˆì§€ë§‰ í•œ ì¹¸ì€ ì €ì¥í•´ë‘” ê°’ìœ¼ë¡œ ì§€ì •
 				arr[x][y] = arr[x][y - 1];
 			}
 			arr[x][y] = leftTop;
@@ -57,7 +57,7 @@ public class BOJ_17406_¹è¿­µ¹¸®±â4 {
 		return min;
 	}
 
-	/** 2Â÷¿ø ¹è¿­ ±íÀº º¹»ç */
+	/** 2ì°¨ì› ë°°ì—´ ê¹Šì€ ë³µì‚¬ */
 	static int[][] copy(int[][] arr) {
 		int[][] ret = new int[arr.length][arr[0].length];
 		for (int i = 0; i < arr.length; i++) {
@@ -67,15 +67,15 @@ public class BOJ_17406_¹è¿­µ¹¸®±â4 {
 	}
 
 	static void dfs(int n, boolean[] turned, int[][] arr) {
-		// nÀº ÇöÀç±îÁö ¼öÇàÇÑ ¿¬»êÀÇ °³¼ö, turned & arr - call by value
-		if (n == K) { // ¿¬»ê ¼öÇà ³¡ -> °è»ê
+		// nì€ í˜„ì¬ê¹Œì§€ ìˆ˜í–‰í•œ ì—°ì‚°ì˜ ê°œìˆ˜, turned & arr - call by value
+		if (n == K) { // ì—°ì‚° ìˆ˜í–‰ ë -> ê³„ì‚°
 			int tmp = getMinSum(arr);
 			if (tmp < answer)
 				answer = tmp;
 			return;
 		}
 		for (int i = 0; i < K; i++) {
-			if (!turned[i]) { // ¾ÆÁ÷ ¾Èµ¹¾Ò¾î
+			if (!turned[i]) { // ì•„ì§ ì•ˆëŒì•˜ì–´
 				turned[i] = true;
 				dfs(n + 1, Arrays.copyOf(turned, K), turn(turnOp.get(i), copy(arr)));
 				turned[i] = false;
@@ -90,7 +90,7 @@ public class BOJ_17406_¹è¿­µ¹¸®±â4 {
 		N = sc.nextInt();
 		M = sc.nextInt();
 		K = sc.nextInt();
-		int[][] arr = new int[N + 1][M + 1]; // index´Â 1~N * 1~M
+		int[][] arr = new int[N + 1][M + 1]; // indexëŠ” 1~N * 1~M
 		for (int i = 1; i <= N; i++) {
 			for (int j = 1; j <= M; j++) {
 				arr[i][j] = sc.nextInt();
@@ -102,7 +102,7 @@ public class BOJ_17406_¹è¿­µ¹¸®±â4 {
 		}
 
 		// solve
-		// °¡´ÉÇÑ ¿¬»ê ½ÇÇà ¼ø¼­ÀÇ ¸ğµç °æ¿ìÀÇ ¼ö ±¸ÇÏ±â -> ¼ø¿­ (Àç±Í)
+		// ê°€ëŠ¥í•œ ì—°ì‚° ì‹¤í–‰ ìˆœì„œì˜ ëª¨ë“  ê²½ìš°ì˜ ìˆ˜ êµ¬í•˜ê¸° -> ìˆœì—´ (ì¬ê·€)
 		boolean[] turned = new boolean[K];
 		dfs(0, turned, arr);
 

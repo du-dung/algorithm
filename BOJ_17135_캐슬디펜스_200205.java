@@ -3,25 +3,25 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /*
-17135. Ä³½½ µğÆæ½º
+17135. ìºìŠ¬ ë””íœìŠ¤
 https://www.acmicpc.net/problem/17135
 */
 
-public class BOJ_17135_Ä³½½µğÆæ½º {
-	static int N, M, D; // °ø°İ °Å¸® Á¦ÇÑ
-	static int answer; // ±Ã¼öÀÇ °ø°İÀ¸·Î Á¦°ÅÇÒ ¼ö ÀÖ´Â ÀûÀÇ ÃÖ´ë ¼ö
+public class BOJ_17135_ìºìŠ¬ë””íœìŠ¤ {
+	static int N, M, D; // ê³µê²© ê±°ë¦¬ ì œí•œ
+	static int answer; // ê¶ìˆ˜ì˜ ê³µê²©ìœ¼ë¡œ ì œê±°í•  ìˆ˜ ìˆëŠ” ì ì˜ ìµœëŒ€ ìˆ˜
 
-	static void kill(int[] archer, int[][] map) { // ±Ã¼ö°¡ archer[0],[1],[2] À§Ä¡¿¡ ÀÖÀ» ¶§ Á×ÀÏ ¼ö ÀÖ´Â ÀûÀÇ ¼ö¸¦ ¹İÈ¯
+	static void kill(int[] archer, int[][] map) { // ê¶ìˆ˜ê°€ archer[0],[1],[2] ìœ„ì¹˜ì— ìˆì„ ë•Œ ì£½ì¼ ìˆ˜ ìˆëŠ” ì ì˜ ìˆ˜ë¥¼ ë°˜í™˜
 		int num = 0;
 		ArrayList<Pair> diedEnemy = new ArrayList<>();
 //	    vector<pair<int, int>> diedEnemy;
-		for (int wall = map.length; wall > 0; wall--) { // wallÀº ±Ã¼ö°¡ À§Ä¡ÇÑ Çà. Áï ¼ºº®. ÀûÀ» ÇÑ Çà¾¿ ¹ØÀ¸·Î ³»¸®´Â ´ë½Å ¼ºº®À» À§·Î ¿Ã¸²
+		for (int wall = map.length; wall > 0; wall--) { // wallì€ ê¶ìˆ˜ê°€ ìœ„ì¹˜í•œ í–‰. ì¦‰ ì„±ë²½. ì ì„ í•œ í–‰ì”© ë°‘ìœ¼ë¡œ ë‚´ë¦¬ëŠ” ëŒ€ì‹  ì„±ë²½ì„ ìœ„ë¡œ ì˜¬ë¦¼
 			for (int i = 0; i < 3; i++) { // c1 : archer[i]
-				// Á×ÀÏ Àû Ã£±â -> °Å¸®°¡ °¡Àå °¡±î¿î Àû & °¡Àå ¿ŞÂÊ
-				// dx (d-dy) : Çà °Å¸® (d ~ 1), dy : ¿­ °Å¸® (0 ~ d-1)
+				// ì£½ì¼ ì  ì°¾ê¸° -> ê±°ë¦¬ê°€ ê°€ì¥ ê°€ê¹Œìš´ ì  & ê°€ì¥ ì™¼ìª½
+				// dx (d-dy) : í–‰ ê±°ë¦¬ (d ~ 1), dy : ì—´ ê±°ë¦¬ (0 ~ d-1)
 				boolean flag = false;
-				for (int d = 1; d <= D; d++) { // ÃÖ¼Ò °Å¸® 1 ~ ÃÖ´ë °Å¸® D±îÁö Å½»ö
-					for (int dy = -d + 1; dy < 0; dy++) { // °¡Àå ¿ŞÂÊÀÎ ÀûºÎÅÍ -> ÀûÀÌ ±Ã¼öº¸´Ù ¿ŞÂÊ, x´Â ¹«Á¶°Ç 1 ÀÌ»ó Â÷ÀÌ³ª¾ß ÇÔ
+				for (int d = 1; d <= D; d++) { // ìµœì†Œ ê±°ë¦¬ 1 ~ ìµœëŒ€ ê±°ë¦¬ Dê¹Œì§€ íƒìƒ‰
+					for (int dy = -d + 1; dy < 0; dy++) { // ê°€ì¥ ì™¼ìª½ì¸ ì ë¶€í„° -> ì ì´ ê¶ìˆ˜ë³´ë‹¤ ì™¼ìª½, xëŠ” ë¬´ì¡°ê±´ 1 ì´ìƒ ì°¨ì´ë‚˜ì•¼ í•¨
 						int dx = d + dy;
 						if (wall - dx >= 0 && archer[i] + dy >= 0 && archer[i] + dy < M
 								&& map[wall - dx][archer[i] + dy] == 1) {
@@ -46,17 +46,17 @@ public class BOJ_17135_Ä³½½µğÆæ½º {
 				}
 			} // end of for : archers
 
-			for (int j = 0; j < diedEnemy.size(); j++) { // Àû Á×ÀÌ±â
+			for (int j = 0; j < diedEnemy.size(); j++) { // ì  ì£½ì´ê¸°
 				if (map[diedEnemy.get(j).first][diedEnemy.get(j).second] == 1) {
 					num++;
 				}
-				map[diedEnemy.get(j).first][diedEnemy.get(j).second] = 0; // Á×¾ù¾î
+				map[diedEnemy.get(j).first][diedEnemy.get(j).second] = 0; // ì£½ì—‡ì–´
 			}
-			diedEnemy.clear(); //ÃÊ±âÈ­
+			diedEnemy.clear(); //ì´ˆê¸°í™”
 		}
 
 		if (num > answer)
-			answer = num; // °»½Å
+			answer = num; // ê°±ì‹ 
 	}
 	
 	static int[][] copy(int[][] arr){
@@ -81,8 +81,8 @@ public class BOJ_17135_Ä³½½µğÆæ½º {
 		}
 
 		// solve
-		// ±Ã¼ö´Â ¼Â, ±Ã¼ö¸¦ ¹èÄ¡ÇÒ ¼ö ÀÖ´Â ¹æ¹ıÀÇ ¼ö¸¸Å­ ¹İº¹, ÃÖ´ñ°ª °»½Å
-		// ±Ã¼ö¸¦ ¹èÄ¡ÇÒ ¼ö ÀÖ´Â ¹æ¹ıÀÇ ¼ö -> NC3 = N!/3!(N-3)!
+		// ê¶ìˆ˜ëŠ” ì…‹, ê¶ìˆ˜ë¥¼ ë°°ì¹˜í•  ìˆ˜ ìˆëŠ” ë°©ë²•ì˜ ìˆ˜ë§Œí¼ ë°˜ë³µ, ìµœëŒ“ê°’ ê°±ì‹ 
+		// ê¶ìˆ˜ë¥¼ ë°°ì¹˜í•  ìˆ˜ ìˆëŠ” ë°©ë²•ì˜ ìˆ˜ -> NC3 = N!/3!(N-3)!
 		for (int i = 0; i < M - 2; i++) {
 			for (int j = i + 1; j < M - 1; j++) {
 				for (int k = j + 1; k < M; k++) {

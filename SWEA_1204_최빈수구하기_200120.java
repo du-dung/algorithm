@@ -1,3 +1,10 @@
+/* 1204. [S/W 문제해결 기본] 1일차 - 최빈수 구하기 D2
+https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV13zo1KAAACFAYh&categoryId=AV13zo1KAAACFAYh&categoryType=CODE
+
+점수 별 학생 수를 기록하는 배열 생성
+	-> 입력받은 숫자(점수)를 index로 해서 배열 값 1씩 증가시키기
+	=> 가장 값이 큰 index가 정답
+*/
 import java.util.Scanner;
  
 class Solution

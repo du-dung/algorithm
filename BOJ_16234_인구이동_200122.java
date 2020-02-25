@@ -7,7 +7,7 @@ public class Solution {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt(), L = sc.nextInt(), R = sc.nextInt();
-        int[][] map = new int[N+2][N+2]; //√ ±‚»≠: N+2 * N+2 ≈©±‚¿« πËø≠ (πŸøÓ¥ı∏Æ √ﬂ∞°)
+        int[][] map = new int[N+2][N+2]; //짹쨩: N+2 * N+2 짤짹쩔짬 첩 (타첩짜캇 詮째)
         for (int i = 1; i <= N; i++) {
             for (int j = 1; j <= N; j++) {
                 map[i][j] = sc.nextInt();
@@ -27,27 +27,27 @@ public class Solution {
 
         while (!isEnd) {
             answer++;
-            isChecked = new boolean[N+2][N+2];//새로 채우기
-            for (int i = 1; i <= N; i++) { //바운더리는 이미 체크한 것으로 표시 -> 조회하지 않도록
+            isChecked = new boolean[N+2][N+2];//濡 梨곌린
+            for (int i = 1; i <= N; i++) { //諛대由щ 대 泥댄ы 寃쇰  -> 議고吏 濡
                 isChecked[0][i] = isChecked[N + 1][i] = isChecked[i][0] = isChecked[i][N + 1] = true;
-            } //바운더리 end
+            } //諛대由 end
             isEnd = true;
 
             for (int r = 1; r <= N; r++) {
                 for (int c = 1; c <= N; c++) {
-                    if (!isChecked[r][c]) { //탐색하지 않음 -> 연합 체크
+                    if (!isChecked[r][c]) { //吏  -> 고 泥댄
                         int population = 0, num = 0;
                         q.offer(new Pair(r, c));
                         myUnion.add(new Pair(r,c));
 
 
-                        while (!q.isEmpty()) {  //연합 모두 찾기 (BFS)
+                        while (!q.isEmpty()) {  //고 紐⑤ 李얘린 (BFS)
                             int x = q.peek().first, y = q.poll().second;
                             if (isChecked[x][y])	continue;
                             isChecked[x][y] = true;
                             population += map[x][y]; num++;
 
-                            //4방향 탐색 -> 중복체크
+                            //4諛⑺  -> 以蹂듭껜
                             for (int i = 0; i < 4; i++) {
                                 int nx = x + dx[i], ny = y + dy[i];
                                 if (!isChecked[nx][ny]) {
@@ -61,12 +61,12 @@ public class Solution {
 
                         } //end of while q
 
-                        population /= num; //재조정할 각 칸의 인구 수
-                        for (int i = 0; i < myUnion.size(); i++) { //연합에 속한 모든 원소들의 값 재설정 -> 인구 이동
+                        population /= num; //ъ“ 媛 移몄 멸뎄 
+                        for (int i = 0; i < myUnion.size(); i++) { //고⑹  紐⑤ ㅼ 媛 ъㅼ -> 멸뎄 대
                             map[myUnion.get(i).first][myUnion.get(i).second] = population;
                         }
-                        if (myUnion.size() > 1)	isEnd = false; //연합에 나 말고 뭔가 있으면 이동한 것
-                        myUnion.clear(); //연합 비우기
+                        if (myUnion.size() > 1)	isEnd = false; //고⑹  留怨 萸媛 쇰㈃ 대 寃
+                        myUnion.clear(); //고 鍮곌린
                     } //end of if
                 }
             } //end of for all map[r][c]

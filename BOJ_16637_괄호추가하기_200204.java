@@ -1,12 +1,12 @@
 import java.util.Scanner;
 
-/* 16637. °ıÈ£ Ãß°¡ÇÏ±â
+/* 16637. ê´„í˜¸ ì¶”ê°€í•˜ê¸°
 https://www.acmicpc.net/problem/16637
- - °¢ ¿¬»êÀÚ´Â °ıÈ£¸¦ ÇÏ´Â °æ¿ì¿Í ÇÏÁö ¾Ê´Â °æ¿ì, 2°¡Áö °æ¿ìÀÇ ¼ö º¸À¯
- - ¾ÕºÎÅÍ ´©Àû ¿¬»ê ÇÊ¿ä -> µÚÀÇ ¿¬»êÀÚ¿¡ °ıÈ£°¡ ÀÖÀ» °æ¿ì¸¦ °í·ÁÇØ¾ß
-	-> ¿¬»êÀÚ´Â ÃÖ´ë 8°³ : 2^8 È¸ ¿¬»ê
+ - ê° ì—°ì‚°ìëŠ” ê´„í˜¸ë¥¼ í•˜ëŠ” ê²½ìš°ì™€ í•˜ì§€ ì•ŠëŠ” ê²½ìš°, 2ê°€ì§€ ê²½ìš°ì˜ ìˆ˜ ë³´ìœ 
+ - ì•ë¶€í„° ëˆ„ì  ì—°ì‚° í•„ìš” -> ë’¤ì˜ ì—°ì‚°ìì— ê´„í˜¸ê°€ ìˆì„ ê²½ìš°ë¥¼ ê³ ë ¤í•´ì•¼
+	-> ì—°ì‚°ìëŠ” ìµœëŒ€ 8ê°œ : 2^8 íšŒ ì—°ì‚°
 */
-public class BOJ_16637_°ıÈ£Ãß°¡ÇÏ±â {
+public class BOJ_16637_ê´„í˜¸ì¶”ê°€í•˜ê¸° {
 	static int answer = Integer.MIN_VALUE;
 	static String str;
 
@@ -22,22 +22,22 @@ public class BOJ_16637_°ıÈ£Ãß°¡ÇÏ±â {
 		return -1;
 	}
 
-	static void dfs(int res, int index) { // res: ´©Àû °ª, index: ÇöÀç ¿¬»êÀÚ
-		if (index + 2 >= str.length()) { // ´ÙÀ½ ¿¬»êÀÚ ¾øÀ½ -> °è»ê ³¡
+	static void dfs(int res, int index) { // res: ëˆ„ì  ê°’, index: í˜„ì¬ ì—°ì‚°ì
+		if (index + 2 >= str.length()) { // ë‹¤ìŒ ì—°ì‚°ì ì—†ìŒ -> ê³„ì‚° ë
 			int r = cal(res, str.charAt(index), str.charAt(index + 1) - '0');
 			if (r > answer)
-				answer = r; // °á°ú ¾÷µ¥ÀÌÆ®
-			return; // ¹Ø ¹®Àå ½ÇÇà ½Ã index out of range ¿¡·¯
+				answer = r; // ê²°ê³¼ ì—…ë°ì´íŠ¸
+			return; // ë°‘ ë¬¸ì¥ ì‹¤í–‰ ì‹œ index out of range ì—ëŸ¬
 		} else
-			dfs(cal(res, str.charAt(index), str.charAt(index + 1) - '0'), index + 2); // °ıÈ£ x
-		if (index + 4 >= str.length()) { // ´Ù´ÙÀ½ ¿¬»êÀÚ ¾øÀ½ -> °è»ê ³¡
+			dfs(cal(res, str.charAt(index), str.charAt(index + 1) - '0'), index + 2); // ê´„í˜¸ x
+		if (index + 4 >= str.length()) { // ë‹¤ë‹¤ìŒ ì—°ì‚°ì ì—†ìŒ -> ê³„ì‚° ë
 			int r = cal(res, str.charAt(index),
-					cal(str.charAt(index + 1) - '0', str.charAt(index + 2), str.charAt(index + 3) - '0')); // ´ÙÀ½ ¿¬»êÀÚ¿¡ °ıÈ£ o
+					cal(str.charAt(index + 1) - '0', str.charAt(index + 2), str.charAt(index + 3) - '0')); // ë‹¤ìŒ ì—°ì‚°ìì— ê´„í˜¸ o
 			if (r > answer)
-				answer = r; // °á°ú ¾÷µ¥ÀÌÆ®
+				answer = r; // ê²°ê³¼ ì—…ë°ì´íŠ¸
 		} else
 			dfs(cal(res, str.charAt(index),
-					cal(str.charAt(index + 1) - '0', str.charAt(index + 2), str.charAt(index + 3) - '0')), index + 4); // ´ÙÀ½ ¿¬»êÀÚ¿¡ °ıÈ£ o
+					cal(str.charAt(index + 1) - '0', str.charAt(index + 2), str.charAt(index + 3) - '0')), index + 4); // ë‹¤ìŒ ì—°ì‚°ìì— ê´„í˜¸ o
 	}
 
 	public static void main(String[] args) {
@@ -47,7 +47,7 @@ public class BOJ_16637_°ıÈ£Ãß°¡ÇÏ±â {
 		str = sc.next();
 
 		//solve
-		if (str.length() == 1) { //¿¹¿Ü Ã³¸®
+		if (str.length() == 1) { //ì˜ˆì™¸ ì²˜ë¦¬
 			System.out.println(str.charAt(0) - '0');
 			return;
 		}
