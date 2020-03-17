@@ -1,9 +1,14 @@
+/* 16234. 인구 이동 Gold 5
+ https://www.acmicpc.net/problem/16234
+ -> BFS, 조합
+ */
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
-public class Solution {
+public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt(), L = sc.nextInt(), R = sc.nextInt();

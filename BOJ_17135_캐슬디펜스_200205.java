@@ -1,13 +1,12 @@
+/*  17135. 캐슬 디펜스
+ https://www.acmicpc.net/problem/17135
+ */
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-/*
-17135. 캐슬 디펜스
-https://www.acmicpc.net/problem/17135
-*/
-
-public class BOJ_17135_캐슬디펜스 {
+public class Main {
 	static int N, M, D; // 공격 거리 제한
 	static int answer; // 궁수의 공격으로 제거할 수 있는 적의 최대 수
 

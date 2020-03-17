@@ -1,6 +1,7 @@
 /* 7699. 수지의 수지 맞는 여행 D4
- * dfs
- * */
+https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWqUzj0arpkDFARG&categoryId=AWqUzj0arpkDFARG&categoryType=CODE
+ -> dfs
+*/
 
 import java.io.BufferedReader;
 import java.io.IOException;

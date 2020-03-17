@@ -1,12 +1,12 @@
-import java.util.Scanner;
-
 /* 16637. 괄호 추가하기
-https://www.acmicpc.net/problem/16637
+ https://www.acmicpc.net/problem/16637
  - 각 연산자는 괄호를 하는 경우와 하지 않는 경우, 2가지 경우의 수 보유
  - 앞부터 누적 연산 필요 -> 뒤의 연산자에 괄호가 있을 경우를 고려해야
-	-> 연산자는 최대 8개 : 2^8 회 연산
-*/
-public class BOJ_16637_괄호추가하기 {
+    -> 연산자는 최대 8개 : 2^8 회 연산
+ */
+import java.util.Scanner;
+
+public class Main {
 	static int answer = Integer.MIN_VALUE;
 	static String str;
 

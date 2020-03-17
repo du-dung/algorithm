@@ -1,15 +1,14 @@
+/* 1753. 최단경로 Gold 5
+ https://www.acmicpc.net/problem/1753
+ -> priority queue api 이용
+ */
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
-/**
- * 1753. 최단경로 Gold 5 https://www.acmicpc.net/problem/1753
- * 
- * 
- */
-public class BOJ_1753_최단경로_200212_pqAPI {
+public class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		// input

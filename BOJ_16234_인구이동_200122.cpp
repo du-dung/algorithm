@@ -1,8 +1,9 @@
-/*
-1. °¢ ³ª¶óÀÇ ¿¬ÇÕ ¿©ºÎ Å½»ö (¸Ê ¹üÀ§: 1~N * 1~N)
-		-> °¢°¢¿¡¼­ bfs
-		-> Áßº¹ Ã¼Å©(ÀÌ¹Ì ¿¬ÇÕ¿¡ Æ÷ÇÔµÇ¾úÀ» °æ¿ì Å½»öÇÏÁö ¾ÊÀ½) ÇÊ¿ä
-2. ¿¬ÇÕÀÇ ÀÎ±¸¼ö Á¶Á¤
+/* 16234. ì¸êµ¬ ì´ë™ Gold 5
+ https://www.acmicpc.net/problem/16234
+1. ê° ë‚˜ë¼ì˜ ì—°í•© ì—¬ë¶€ íƒìƒ‰ (ë§µ ë²”ìœ„: 1~N * 1~N)
+		-> ê°ê°ì—ì„œ bfs
+		-> ì¤‘ë³µ ì²´í¬(ì´ë¯¸ ì—°í•©ì— í¬í•¨ë˜ì—ˆì„ ê²½ìš° íƒìƒ‰í•˜ì§€ ì•ŠìŒ) í•„ìš”
+2. ì—°í•©ì˜ ì¸êµ¬ìˆ˜ ì¡°ì •
 */
 
 #include <iostream>
@@ -13,7 +14,7 @@ using namespace std;
 int main() {
 	int N, L, R;
 	cin >> N >> L >> R;
-	vector<vector<int>> map(N+2, vector<int>(N+2)); //ÃÊ±âÈ­: N+2 * N+2 Å©±âÀÇ ¹è¿­ (¹Ù¿î´õ¸® Ãß°¡)
+	vector<vector<int>> map(N+2, vector<int>(N+2)); //ì´ˆê¸°í™”: N+2 * N+2 í¬ê¸°ì˜ ë°°ì—´ (ë°”ìš´ë”ë¦¬ ì¶”ê°€)
 	for (int i = 1; i <= N; i++) {
 		for (int j = 1; j <= N; j++) {
 			cin >> map[i][j];
@@ -33,28 +34,28 @@ int main() {
 
 	while (!isEnd) {
 		answer++;
-		vector<vector<bool>>(N + 2, vector<bool>(N + 2, false)).swap(isChecked); //»õ·Î Ã¤¿ì±â
-		for (int i = 1; i <= N; i++) { //¹Ù¿î´õ¸®´Â ÀÌ¹Ì Ã¼Å©ÇÑ °ÍÀ¸·Î Ç¥½Ã -> Á¶È¸ÇÏÁö ¾Êµµ·Ï
+		vector<vector<bool>>(N + 2, vector<bool>(N + 2, false)).swap(isChecked); //ìƒˆë¡œ ì±„ìš°ê¸°
+		for (int i = 1; i <= N; i++) { //ë°”ìš´ë”ë¦¬ëŠ” ì´ë¯¸ ì²´í¬í•œ ê²ƒìœ¼ë¡œ í‘œì‹œ -> ì¡°íšŒí•˜ì§€ ì•Šë„ë¡
 			isChecked[0][i] = isChecked[N + 1][i] = isChecked[i][0] = isChecked[i][N + 1] = true;
-		} //¹Ù¿î´õ¸® end
+		} //ë°”ìš´ë”ë¦¬ end
 		isEnd = true;
 
 		for (int r = 1; r <= N; r++) {
 			for (int c = 1; c <= N; c++) {
-				if (!isChecked[r][c]) { //Å½»öÇÏÁö ¾ÊÀ½ -> ¿¬ÇÕ Ã¼Å©
-					int population = 0, num = 0; //ÃÊ±âÈ­
+				if (!isChecked[r][c]) { //íƒìƒ‰í•˜ì§€ ì•ŠìŒ -> ì—°í•© ì²´í¬
+					int population = 0, num = 0; //ì´ˆê¸°í™”
 					q.push({ r,c });
 					myUnion.push_back({ r,c });
 					
 
-					while (!q.empty()) { //¿¬ÇÕ ¸ğµÎ Ã£±â (BFS)
+					while (!q.empty()) { //ì—°í•© ëª¨ë‘ ì°¾ê¸° (BFS)
 						int x = q.front().first, y = q.front().second;
 						q.pop();
 						if (isChecked[x][y])	continue;
 						isChecked[x][y] = true;
 						population += map[x][y]; num++;
 
-						//4¹æÇâ Å½»ö -> Áßº¹Ã¼Å©
+						//4ë°©í–¥ íƒìƒ‰ -> ì¤‘ë³µì²´í¬
 						for (int i = 0; i < 4; i++) {
 							int nx = x + dx[i], ny = y + dy[i];
 							if (!isChecked[nx][ny]) {
@@ -68,12 +69,12 @@ int main() {
 						
 					} //end of while q
 
-					population /= num; //ÀçÁ¶Á¤ÇÒ °¢ Ä­ÀÇ ÀÎ±¸ ¼ö
-					for (int i = 0; i < myUnion.size(); i++) { //¿¬ÇÕ¿¡ ¼ÓÇÑ ¸ğµç ¿ø¼ÒµéÀÇ °ª Àç¼³Á¤ -> ÀÎ±¸ ÀÌµ¿
+					population /= num; //ì¬ì¡°ì •í•  ê° ì¹¸ì˜ ì¸êµ¬ ìˆ˜
+					for (int i = 0; i < myUnion.size(); i++) { //ì—°í•©ì— ì†í•œ ëª¨ë“  ì›ì†Œë“¤ì˜ ê°’ ì¬ì„¤ì • -> ì¸êµ¬ ì´ë™
 						map[myUnion[i].first][myUnion[i].second] = population;
 					}
-					if (myUnion.size() > 1)	isEnd = false; //¿¬ÇÕ¿¡ ³ª ¸»°í ¹º°¡ ÀÖÀ¸¸é ÀÌµ¿ÇÑ °Í
-					myUnion.clear(); //¿¬ÇÕ ºñ¿ì±â
+					if (myUnion.size() > 1)	isEnd = false; //ì—°í•©ì— ë‚˜ ë§ê³  ë­”ê°€ ìˆìœ¼ë©´ ì´ë™í•œ ê²ƒ
+					myUnion.clear(); //ì—°í•© ë¹„ìš°ê¸°
 				} //end of if 
 			}
 		} //end of for all map[r][c]

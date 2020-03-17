@@ -1,14 +1,14 @@
+/* 17406. 배열 돌리기 4 Gold V
+ https://www.acmicpc.net/problem/17406
+ - 가능한 회전 연산 실행 순서를 모두 실행하며 최솟값 갱신하기
+ -> 연산 수행 순서에 따라 배열의 모양이 다르다
+ */
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-/* 17406. 배열 돌리기 4 Gold V
-https://www.acmicpc.net/problem/17406
-- 가능한 회전 연산 실행 순서를 모두 실행하며 최솟값 갱신하기
-	-> 연산 수행 순서에 따라 배열의 모양이 다르다 
-*/
-
-public class BOJ_17406_배열돌리기4 {
+public class Main {
 
 	static int N, M, K;
 	static ArrayList<Tuple> turnOp = new ArrayList<>();

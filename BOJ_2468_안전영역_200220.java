@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Solution {
+public class Main {
     static int N;
     static int[][] map;
     static boolean[][] visited;

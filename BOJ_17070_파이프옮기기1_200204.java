@@ -1,9 +1,9 @@
+/* 17070. 파이프 옮기기
+ https://www.acmicpc.net/problem/17070
+ */
 import java.util.Scanner;
 
-/* 17070. 파이프 옮기기 
-	https://www.acmicpc.net/problem/17070
-	*/
-public class BOJ_17070_파이프옮기기 {
+public class Main {
 	enum Pipe {
 		horizontal, vertical, diagonal
 	};
