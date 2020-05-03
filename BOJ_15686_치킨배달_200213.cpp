@@ -1,3 +1,7 @@
+/* 15686. 치킨배달 Gold 5
+https://www.acmicpc.net/problem/15686
+*/
+
 #include <iostream>
 #include <algorithm>
 #include <vector>

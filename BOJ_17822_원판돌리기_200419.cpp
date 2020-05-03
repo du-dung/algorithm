@@ -1,4 +1,4 @@
-/* 17822. 원판 돌리기
+/* 17822. 원판 돌리기 Gold 3
 https://www.acmicpc.net/problem/17822
 */
 #include <iostream>

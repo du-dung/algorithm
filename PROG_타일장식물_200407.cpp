@@ -15,7 +15,3 @@ long long solution(int N) {
     }
     return fibo[N]*2 + fibo[N-1]*2;
 }
-
-int main() {
-    cout << solution(5) << '\n' << solution(6);
-}

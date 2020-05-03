@@ -1,7 +1,7 @@
 /* 다트 게임 Level 1
 https://programmers.co.kr/learn/courses/30/lessons/17682
  */
-#include <iostream>
+
 #include <string>
 #include <vector>
 using namespace std;
@@ -39,8 +39,4 @@ int solution(string dartResult) {
         answer += i;
     }
     return answer;
-}
-
-int main() {
-    cout << solution("1D2S#10S") << '\n'; //37
 }

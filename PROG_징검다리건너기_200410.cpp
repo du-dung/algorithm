@@ -4,7 +4,6 @@ https://programmers.co.kr/learn/courses/30/lessons/64062
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <iostream>
 using namespace std;
 
 // 효율성 13에서 터짐 ..
@@ -40,9 +39,4 @@ int solution(vector<int> stones, int k) {
         M = (MIN + MAX) / 2 + 1;
     }
     return MIN; //이 시점에서 MIN == MAX
-}
-
-int main() {
-    cout << solution({2, 4, 5, 3, 2, 1, 4, 2, 5, 1}, 3) << '\n'; //3
-    cout << solution({2, 4, 5}, 1) << '\n'; //3
 }

@@ -1,11 +1,8 @@
-/* 1753. ìµœë‹¨ê²½ë¡œ Gold 5
+/* 1753. ÃÖ´Ü°æ·Î Gold 5
  https://www.acmicpc.net/problem/1753
- -> priority queue ì§ì ‘ êµ¬í˜„
  */
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Main {
 	public static void main(String[] args) {
@@ -24,9 +21,9 @@ public class Main {
 			v = sc.nextShort();
 			w = sc.nextByte();
 			if (list.get(u).get(v) == null)
-				list.get(u).put(v, w); // ì •ì ì´ key, ê°€ì¤‘ì¹˜ê°€ value
+				list.get(u).put(v, w); // Á¤Á¡ÀÌ key, °¡ÁßÄ¡°¡ value
 			else if (list.get(u).get(v) > w)
-				list.get(u).replace(v, w); // ìƒˆë¡œ ë°›ì€ ì •ì ì˜ ê°€ì¤‘ì¹˜ê°€ ì‘ì„ ê²½ìš° ê°±ì‹ 
+				list.get(u).replace(v, w); // »õ·Î ¹ŞÀº Á¤Á¡ÀÇ °¡ÁßÄ¡°¡ ÀÛÀ» °æ¿ì °»½Å
 		}
 
 		// solve
@@ -46,12 +43,12 @@ public class Main {
 //			for (u = 1; u <= V; u++) {
 //				if (!list.get(p.v).containsKey(u))
 //					continue;
-//				if (!visited[u] && dist[u] > (list.get(p.v).get(u) + dist[p.v])) { // ë°©ë¬¸í•˜ì§€ ì•Šì•˜ê³ , u ì •ì ê¹Œì§€ì˜ ê±°ë¦¬ê°€
+//				if (!visited[u] && dist[u] > (list.get(p.v).get(u) + dist[p.v])) { // ¹æ¹®ÇÏÁö ¾Ê¾Ò°í, u Á¤Á¡±îÁöÀÇ °Å¸®°¡
 //																					// (list.get(p.v).get(u) +
-//																					// dist[p.v]ë³´ë‹¤ í´ ê²½ìš°
-//																					// (p.vë¥¼ ê±°ì¹˜ëŠ” ê±°ë¦¬ë³´ë‹¤ í´ ê²½ìš°)
-//					dist[u] = list.get(p.v).get(u) + dist[p.v]; // ê±°ë¦¬ ê°±ì‹ 
-//					pq.push(new Pair(u, dist[u])); // pqì— ë„£ê¸°
+//																					// dist[p.v]º¸´Ù Å¬ °æ¿ì
+//																					// (p.v¸¦ °ÅÄ¡´Â °Å¸®º¸´Ù Å¬ °æ¿ì)
+//					dist[u] = list.get(p.v).get(u) + dist[p.v]; // °Å¸® °»½Å
+//					pq.push(new Pair(u, dist[u])); // pq¿¡ ³Ö±â
 //				}
 //			}
 			list.get(p.v).forEach((key, value) -> {
@@ -65,7 +62,7 @@ public class Main {
 		// output
 		StringBuilder sb = new StringBuilder();
 		for (int i = 1; i <= V; i++) {
-			sb.append((dist[i] == Integer.MAX_VALUE ? "INF" : dist[i]) + "\n"); // ê²½ë¡œ ì—†ìœ¼ë©´ INF
+			sb.append((dist[i] == Integer.MAX_VALUE ? "INF" : dist[i]) + "\n"); // °æ·Î ¾øÀ¸¸é INF
 		}
 		System.out.println(sb);
 	}// end of main
@@ -83,11 +80,11 @@ class Priority_Queue {
 
 	Pair pop() {
 		Pair p = q[1];
-		q[1] = q[end--]; // ë§ˆì§€ë§‰ ì›ì†Œë¥¼ topìœ¼ë¡œ ì˜¬ë¦¬ê³ 
+		q[1] = q[end--]; // ¸¶Áö¸· ¿ø¼Ò¸¦ topÀ¸·Î ¿Ã¸®°í
 		int i = 1;
-		while (i < end) { // ë‚´ë ¤ê°€ë©´ì„œ ë¹„êµ
+		while (i < end) { // ³»·Á°¡¸é¼­ ºñ±³
 			int k = min(i, i * 2, i * 2 + 1);
-			if (k == i) { // iê°€ ì ¤ ì‘ìŒ -> ì •ë ¬ ë
+			if (k == i) { // i°¡ Á© ÀÛÀ½ -> Á¤·Ä ³¡
 				break;
 			}
 			swap(i, k);
@@ -100,21 +97,21 @@ class Priority_Queue {
 	void push(Pair a) {
 		q[++end] = a;
 		int i = end;
-		while (i > 1) {// ì˜¬ë¼ê°€ë©´ì„œ ë¹„êµ
+		while (i > 1) {// ¿Ã¶ó°¡¸é¼­ ºñ±³
 			if (q[i].dist > q[i / 2].dist)
-				break; // ë‚´ê°€ ë¶€ëª¨ë³´ë‹¤ í¼ -> ì •ë ¬ ë
+				break; // ³»°¡ ºÎ¸ğº¸´Ù Å­ -> Á¤·Ä ³¡
 			swap(i, i / 2);
 			i /= 2;
 		}
 	}
 
-	void swap(int i1, int i2) { // i1ë²ˆì§¸ì™€ i2ë²ˆì§¸ ì›ì†Œ ìŠ¤ì™‘
+	void swap(int i1, int i2) { // i1¹øÂ°¿Í i2¹øÂ° ¿ø¼Ò ½º¿Ò
 		Pair tmp = q[i1];
 		q[i1] = q[i2];
 		q[i2] = tmp;
 	}
 
-	int min(int i1, int i2, int i3) { // distê°€ ê°€ì¥ ì‘ì€ ì¸ë±ìŠ¤ ë°˜í™˜
+	int min(int i1, int i2, int i3) { // dist°¡ °¡Àå ÀÛÀº ÀÎµ¦½º ¹İÈ¯
 		if (i2 > end)
 			return i1;
 		if (i3 > end) {

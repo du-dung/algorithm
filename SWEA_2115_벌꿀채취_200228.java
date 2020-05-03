@@ -1,4 +1,4 @@
-/* 2115. 벌꿀채취 모의테스트
+/* 2115. [모의 SW 역량테스트] 벌꿀채취
 https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5V4A46AdIDFAWu
  */
 import java.io.BufferedReader;

@@ -1,6 +1,6 @@
-/* 2105. 디저트 카페 모의
- 
- */
+/* 2105. [모의 SW 역량테스트] 디저트 카페
+ https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5VwAr6APYDFAWu&categoryId=AV5VwAr6APYDFAWu&categoryType=CODE
+*/
 #include <iostream>
 using namespace std;
 

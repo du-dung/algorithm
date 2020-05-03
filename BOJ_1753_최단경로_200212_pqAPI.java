@@ -1,12 +1,8 @@
-/* 1753. ìµœë‹¨ê²½ë¡œ Gold 5
+/* 1753. ÃÖ´Ü°æ·Î Gold 5
  https://www.acmicpc.net/problem/1753
- -> priority queue api ì´ìš©
  */
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.PriorityQueue;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Main {
 	public static void main(String[] args) {
@@ -25,9 +21,9 @@ public class Main {
 			v = sc.nextShort();
 			w = sc.nextByte();
 			if (list.get(u).get(v) == null)
-				list.get(u).put(v, w); // ì •ì ì´ key, ê°€ì¤‘ì¹˜ê°€ value
+				list.get(u).put(v, w); // Á¤Á¡ÀÌ key, °¡ÁßÄ¡°¡ value
 			else if (list.get(u).get(v) > w)
-				list.get(u).replace(v, w); // ìƒˆë¡œ ë°›ì€ ì •ì ì˜ ê°€ì¤‘ì¹˜ê°€ ì‘ì„ ê²½ìš° ê°±ì‹ 
+				list.get(u).replace(v, w); // »õ·Î ¹ŞÀº Á¤Á¡ÀÇ °¡ÁßÄ¡°¡ ÀÛÀ» °æ¿ì °»½Å
 		}
 
 		// solve
@@ -54,7 +50,7 @@ public class Main {
 		// output
 		StringBuilder sb = new StringBuilder();
 		for (int i = 1; i <= V; i++) {
-			sb.append((dist[i] == Integer.MAX_VALUE ? "INF" : dist[i]) + "\n"); // ê²½ë¡œ ì—†ìœ¼ë©´ INF
+			sb.append((dist[i] == Integer.MAX_VALUE ? "INF" : dist[i]) + "\n"); // °æ·Î ¾øÀ¸¸é INF
 		}
 		System.out.println(sb);
 	}// end of main

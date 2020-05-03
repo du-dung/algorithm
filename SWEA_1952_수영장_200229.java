@@ -1,4 +1,4 @@
-/* 1952. 수영장 모의테스트
+/* 1952. [모의 SW 역량테스트] 수영장
 https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PpFQaAQMDFAUq
  */
 

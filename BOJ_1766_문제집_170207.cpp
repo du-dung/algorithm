@@ -1,3 +1,6 @@
+/* 1766. 문제집 Gold 2
+https://www.acmicpc.net/problem/1766
+*/
 #include<iostream>
 #include<queue>
 #include<functional>

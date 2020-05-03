@@ -1,5 +1,4 @@
-/*
-17472. 다리 만들기 2 Gold 3
+/* 17472. 다리 만들기 2 Gold 3
 https://www.acmicpc.net/problem/17472
 
 1. 섬 분리해서 번호 부여

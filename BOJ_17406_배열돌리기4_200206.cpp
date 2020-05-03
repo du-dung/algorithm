@@ -1,11 +1,8 @@
-/* 17406. 배열 돌리기 4 Gold V
+/* 17406. 배열 돌리기 4 Gold 5
 https://www.acmicpc.net/problem/17406
 
 - 가능한 회전 연산 실행 순서를 모두 실행하며 최솟값 갱신하기
 	-> 연산 수행 순서에 따라 배열의 모양이 다르다 
-
-실행 결과
-메모리 1988KB 시간 12ms
 */
 #include <iostream>
 #include <tuple>

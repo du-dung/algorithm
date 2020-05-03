@@ -1,4 +1,4 @@
-/* 새로운 게임 2 Gold 2
+/* 17837. 새로운 게임 2 Gold 2
 https://www.acmicpc.net/problem/17837
  */
 #include <iostream>
